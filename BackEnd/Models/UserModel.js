@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -15,7 +16,7 @@ const userSchema = Schema({
     email: {
         type: String,
         require: [true, "Email is required"],
-        validate: [Validator.isEmail, "Email is not valid"],
+        validate: [validator.isEmail, "Email is not valid"],
         unique: true
     },
 
@@ -51,16 +52,10 @@ const userSchema = Schema({
 userSchema.pre("save", async function (next) {
 
     if (!this.isModified("password")) {
-        return next();
+        next();
     }
-
-    try {
-        const salt = await bcrypt.genSalt(10);
-        let hashedPassword = await bcrypt.hash(this.password, salt);
-        this.password = hashedPassword;
-    } catch (error) {
-        console.log(error.message)
-    }
+    let salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, parseInt(salt));
 });
 
 
@@ -71,18 +66,23 @@ userSchema.methods.getJwtToken = function () {
     })
 }
 
-// Compare password
-userSchema.methods.passwordCompare(givenPassword) = async function () {
-    return await bcrypt.compare(givenPassword, this.password);
-}
+// // Compare password
+// userSchema.methods.comparePassword(givenPassword) = async function () {
+//     return await bcrypt.compare(givenPassword, this.password, (err, data) => {
 
-//Forgot password
-userSchema.methods.getResetToken = function () {
-    // Generate token
-    const resetToken = crypto.randomBytes(20).toString("hex");
+//     });
+// }
 
-    // Hash token and set to resetPasswordToken field
-    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+// //Forgot password
+// userSchema.methods.getResetToken = function () {
+//     // Generate token
+//     const resetToken = crypto.randomBytes(20).toString("hex");
 
-    this.resetPasswordTime = Date.now() + 15 * 60 * 3000;
-}
+//     // Hash token and set to resetPasswordToken field
+//     this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+//     this.resetPasswordTime = Date.now() + 15 * 60 * 3000;
+// }
+
+const userModel = model("User", userSchema);
+module.exports = userModel;
