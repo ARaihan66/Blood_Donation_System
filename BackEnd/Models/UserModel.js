@@ -66,12 +66,12 @@ userSchema.methods.getJwtToken = function () {
     })
 }
 
-// // Compare password
-// userSchema.methods.comparePassword(givenPassword) = async function () {
-//     return await bcrypt.compare(givenPassword, this.password, (err, data) => {
+// Compare password
+userSchema.methods.comparePassword = async function (givenPassword) {
+    return await bcrypt.compare(givenPassword, this.password, (err, data) => {
 
-//     });
-// }
+    });
+}
 
 // //Forgot password
 // userSchema.methods.getResetToken = function () {
