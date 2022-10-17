@@ -216,4 +216,28 @@ exports.getAllUser = async (req, res) => {
     }
 }
 
+// Get single user detail ----- Admin
+exports.getSingleUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            res.status(401).json({
+                success: false,
+                message: "User is not found !!"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            User: user
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 
