@@ -134,5 +134,34 @@ exports.updateProfile = async (req, res, next) => {
 
 // Update password
 exports.updatePassword = async (req, res, next) => {
+    const { oldPassword, newPassword, confirmPassword } = req.body;
 
+    const user = await User.findById(req.user);
+
+    if (!user) {
+        res.status(400).json({
+            success: false,
+            message: "User is not found !!"
+        })
+    }
+
+    const isPasswordMatched = user.comparePassword(oldPassword);
+
+    if (!isPasswordMatched) {
+        return res.status(401).json({
+            success: false,
+            message: "Password is not matched!!"
+        })
+    }
+
+    if (newPassword !== confirmPassword) {
+        return res.status(401).json({
+            success: false,
+            message: "New password is not match with confirm password"
+        })
+    }
+
+    user.password = newPassword;
+    await user.save();
+    sendToken(user, 200, res);
 }
