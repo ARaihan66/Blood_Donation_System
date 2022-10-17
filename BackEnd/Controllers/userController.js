@@ -1,3 +1,4 @@
+const { findById, findByIdAndUpdate } = require('../Models/UserModel');
 const User = require('../Models/UserModel');
 const sendToken = require('../Utils/JwtToken')
 
@@ -85,5 +86,53 @@ exports.userLogout = async (req, res) => {
         success: true,
         message: "Log out successful !!"
     })
+
+}
+
+
+// User profile details
+exports.userProfile = async (req, res, next) => {
+    const { id } = req.body;
+    const user = await findById(id);
+
+    res.status(200).json({
+        success: true,
+        User: user
+    })
+}
+
+// User profile update
+exports.updateProfile = async (req, res, next) => {
+    const { id, name, email, password } = req.body;
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+        res.status(400).json({
+            success: false,
+            message: "User is not found with this email !!"
+        })
+    }
+
+    user = await findByIdAndUpdate(id, {
+        $set: {
+            name: name,
+            email: email,
+            password: password
+        }
+    }, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        message: 'Profile is successfully updated!!',
+        updatedUser: user
+    })
+}
+
+// Update password
+exports.updatePassword = async (req, res, next) => {
 
 }
