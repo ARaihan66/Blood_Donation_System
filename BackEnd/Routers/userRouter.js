@@ -9,7 +9,8 @@ const {
     updatePassword,
     getAllUser,
     getSingleUser,
-    forgetPassword
+    forgetPassword,
+    resetPassword
 } = require("../Controllers/userController");
 const router = express.Router();
 
@@ -33,6 +34,9 @@ router.route('/update/password')
 
 router.route('/forget/password')
     .get(forgetPassword)
+
+router.route('/forget/password')
+    .put(resetPassword)
 
 router.route('/all/users')
     .get(authenticatedUser, authorizeRole('admin'), getAllUser)

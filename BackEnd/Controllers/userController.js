@@ -3,7 +3,7 @@ const User = require('../Models/UserModel');
 const sendToken = require('../Utils/JwtToken.js');
 const sendMail = require('../Utils/sendMail.js');
 const randomstring = require('randomstring');
-const e = require('express');
+const bcrypt = require('bcrypt');
 
 // User registration
 exports.createAccount = async (req, res) => {
@@ -180,7 +180,6 @@ exports.forgetPassword = async (req, res) => {
     const tempToken = randomstring.generate();
 
     const user = await User.updateOne({ email }, { $set: { token: tempToken } });
-    //console.log(user);
     sendMail(userData.name, userData.email, tempToken);
 
     res.status(400).json({
@@ -188,6 +187,30 @@ exports.forgetPassword = async (req, res) => {
         message: "Please check your mail and reset password !!"
     })
 
+}
+
+
+// Reset password
+exports.resetPassword = async (req, res) => {
+    const token = req.query.token;
+
+    const tokenData = await User.findOne({ token: token });
+    if (!tokenData) {
+        return res.status(400).json({
+            seccess: false,
+            message: "User is not found with this mail !!"
+        })
+    }
+
+    const password = req.body.password;
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.findByIdAndUpdate({ _id: tokenData._id }, { $set: { password: hashPassword, token: '' } }, { new: true });
+
+    res.status(200).json({
+        success: true,
+        message: "Password is successfully reseted !!"
+    })
 }
 
 // Get all user ------ Admin
