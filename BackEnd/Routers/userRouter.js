@@ -8,7 +8,8 @@ const {
     updateProfile,
     updatePassword,
     getAllUser,
-    getSingleUser
+    getSingleUser,
+    forgetPassword
 } = require("../Controllers/userController");
 const router = express.Router();
 
@@ -30,11 +31,15 @@ router.route('/update/profile')
 router.route('/update/password')
     .put(authenticatedUser, updatePassword)
 
+router.route('/forget/password')
+    .get(forgetPassword)
+
 router.route('/all/users')
     .get(authenticatedUser, authorizeRole('admin'), getAllUser)
 
 router.route('/single/:id')
     .get(authenticatedUser, authorizeRole('admin'), getSingleUser)
+
 
 module.exports = router;
 

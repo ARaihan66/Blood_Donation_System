@@ -1,6 +1,9 @@
-const { findById, findByIdAndUpdate } = require('../Models/UserModel');
+const { findById, findByIdAndUpdate, updateOne } = require('../Models/UserModel');
 const User = require('../Models/UserModel');
 const sendToken = require('../Utils/JwtToken.js');
+const sendMail = require('../Utils/sendMail.js');
+const randomstring = require('randomstring');
+const e = require('express');
 
 // User registration
 exports.createAccount = async (req, res) => {
@@ -102,16 +105,12 @@ exports.updateProfile = async (req, res, next) => {
         })
     }
 
-    //user = req.body.email;
-
     if (user.email === req.body.email) {
         return res.status(400).json({
             success: false,
             message: "User is already registered with this email !!"
         })
     }
-
-
 
     const updatedData = {
         name: req.body.name,
@@ -167,6 +166,30 @@ exports.updatePassword = async (req, res, next) => {
 
 }
 
+// Forget password
+exports.forgetPassword = async (req, res) => {
+    const { email } = req.body;
+    let userData = await User.findOne({ email });
+    if (!userData) {
+        return res.status(400).json({
+            success: false,
+            message: "User is not found with this email !!"
+        })
+    }
+
+    const tempToken = randomstring.generate();
+
+    const user = await User.updateOne({ email }, { $set: { token: tempToken } });
+    //console.log(user);
+    sendMail(userData.name, userData.email, tempToken);
+
+    res.status(400).json({
+        success: true,
+        message: "Please check your mail and reset password !!"
+    })
+
+}
+
 // Get all user ------ Admin
 exports.getAllUser = async (req, res) => {
     const users = await User.find();
@@ -176,9 +199,6 @@ exports.getAllUser = async (req, res) => {
         Users: users
     })
 }
-
-// Forget password
-
 
 
 // Get single user detail ----- Admin

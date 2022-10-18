@@ -44,6 +44,11 @@ const userSchema = Schema({
         default: "user"
     },
 
+    randomToken: {
+        type: String,
+        default: ''
+    },
+
     resetPasswordToken: String,
     resetPasswordTime: Date
 })
