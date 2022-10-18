@@ -33,7 +33,7 @@ router.route('/update/password')
 router.route('/all/users')
     .get(authenticatedUser, authorizeRole('admin'), getAllUser)
 
-router.route('/single/user')
+router.route('/single/:id')
     .get(authenticatedUser, authorizeRole('admin'), getSingleUser)
 
 module.exports = router;

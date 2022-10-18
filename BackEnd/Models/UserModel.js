@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const validator = require('validator');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
@@ -68,9 +68,7 @@ userSchema.methods.getJwtToken = function () {
 
 // Compare password
 userSchema.methods.comparePassword = async function (givenPassword) {
-    return await bcrypt.compare(givenPassword, this.password, (err, data) => {
-
-    });
+    return await bcrypt.compare(givenPassword, this.password);
 }
 
 // //Forgot password
