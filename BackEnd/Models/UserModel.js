@@ -49,8 +49,6 @@ const userSchema = Schema({
         default: ''
     },
 
-    resetPasswordToken: String,
-    resetPasswordTime: Date
 })
 
 // Hash password

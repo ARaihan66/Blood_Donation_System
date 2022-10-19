@@ -205,11 +205,12 @@ exports.resetPassword = async (req, res) => {
     const password = req.body.password;
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.findByIdAndUpdate({ _id: tokenData._id }, { $set: { password: hashPassword, token: '' } }, { new: true });
+    const user = await User.findByIdAndUpdate({ _id: tokenData._id }, { $set: { password: hashPassword, randomToken: '' } }, { new: true });
 
     res.status(200).json({
         success: true,
-        message: "Password is successfully reseted !!"
+        message: "Password is successfully reseted !!",
+        User: user
     })
 }
 
