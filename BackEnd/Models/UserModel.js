@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, mongoose } = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const userSchema = Schema({
     name: {
         type: String,
-        require: [true, "Name is required"],
+        required: [true, "Name is required"],
         minlength: [4, "Minimum length of name is 4 charecters"],
         maxlength: [12, "Maximum lenght of name is 12 charecters"],
         trim: true
@@ -15,7 +15,7 @@ const userSchema = Schema({
 
     email: {
         type: String,
-        require: [true, "Email is required"],
+        required: [true, "Email is required"],
         validate: [validator.isEmail, "Email is not valid"],
         unique: true
     },
@@ -23,9 +23,17 @@ const userSchema = Schema({
     password: {
         type: String,
         minlength: [4, "Minimum length of password is 4 charecters"],
-        maxlenght: [8, "Maximum length of password is 8 charecters"],
+        maxlenght: [15, "Maximum length of password is 15 charecters"],
         required: [true, "Password is required"]
     },
+
+    bloodGroup: {
+        type: String
+        // required: [true, "Blood group is required"]
+        //enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O-', 'O+'],
+        // default: 'A+'
+    },
+
 
     avater: {
         public_id: {
@@ -41,15 +49,16 @@ const userSchema = Schema({
 
     role: {
         type: String,
+        enum: ['user', 'admin'],
         default: "user"
     },
 
     randomToken: {
         type: String,
         default: ''
-    },
+    }
 
-})
+}, { timestamps: true })
 
 // Hash password
 userSchema.pre("save", async function (next) {
@@ -73,17 +82,6 @@ userSchema.methods.getJwtToken = function () {
 userSchema.methods.comparePassword = async function (givenPassword) {
     return await bcrypt.compare(givenPassword, this.password);
 }
-
-// //Forgot password
-// userSchema.methods.getResetToken = function () {
-//     // Generate token
-//     const resetToken = crypto.randomBytes(20).toString("hex");
-
-//     // Hash token and set to resetPasswordToken field
-//     this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-
-//     this.resetPasswordTime = Date.now() + 15 * 60 * 3000;
-// }
 
 const userModel = model("User", userSchema);
 module.exports = userModel;
