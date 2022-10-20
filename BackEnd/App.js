@@ -10,13 +10,15 @@ app.use(cookieParser());
 const user = require('./Routers/userRouter');
 const userPost = require('./Routers/postRouter');
 const userComment = require('./Routers/commentRouter');
-const newsFeed = require('./Routers/newsFeedRouter');
+const postNewsFeed = require('./Routers/postNewsFeedRouter');
+const commentNewsFeed = require('./Routers/commentNewsFeedRouter');
 const blood_search = require('./Routers/searchRouter');
 
 app.use('/api/user', user);
 app.use('/api/post', userPost);
 app.use('/api/comment', userComment);
-app.use('/api/newsFeed', newsFeed);
+app.use('/api/postNewsFeed', postNewsFeed);
+app.use('/api/commentNewsFeed', commentNewsFeed);
 app.use('/api/blood/search', blood_search);
 
 app.use(errorHandler);

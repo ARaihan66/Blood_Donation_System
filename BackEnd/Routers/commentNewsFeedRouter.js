@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { getNewsFeed } = require('../Controllers/newsFeedController');
+const { commentNewsFeed } = require('../Controllers/commentNewsFeedController');
 
 router.route('/')
-    .get(getNewsFeed)
+    .get(commentNewsFeed)
 
 module.exports = router;
