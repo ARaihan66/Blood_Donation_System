@@ -15,5 +15,41 @@ exports.createPost = async (req, res) => {
         }
     })
 
-    res.send(userPost);
+    res.status(200).json({
+        seccess: true,
+        message: "Post has created successfully",
+        post: userPost
+    });
+}
+
+// Update post
+exports.updatePost = async (req, res) => {
+    const { postData, id } = req.body;
+    const user = await User.findById(req.user.id);
+
+    const post = await Post.findById(id);
+
+    if (!post) {
+        return res.status(400).json({
+            success: false,
+            message: "You don't create post"
+        })
+    }
+
+    const updatePost = await Post.findByIdAndUpdate(id, {
+        $set: {
+            postData: postData,
+        }
+    }, { new: true })
+
+    res.status(200).json({
+        seccess: true,
+        message: "Post has updated successfully",
+        post: updatePost
+    });
+}
+
+// Delete post
+exports.deletePost = async (req, res) => {
+
 }
