@@ -7,9 +7,11 @@ const errorHandler = require('./ErrorHandler/errorHandler.js')
 app.use(express.json());
 app.use(cookieParser());
 
-const user = require('./Routers/userRouter')
+const user = require('./Routers/userRouter');
+const userPost = require('./Routers/postRouter');
 
 app.use('/api/user', user);
+app.use('/api/post', userPost);
 
 app.use(errorHandler);
 

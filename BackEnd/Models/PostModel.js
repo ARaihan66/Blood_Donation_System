@@ -1,15 +1,15 @@
 const { Schema, model } = require('mongoose');
 
 
-const postModel = Schema({
+const postSchema = Schema({
     postData: [{
         type: String,
         required: true,
     }],
     postedUser: {
-        user: {
+        userId: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'userModel',
             required: true
         },
         name: {
@@ -24,5 +24,5 @@ const postModel = Schema({
     }
 })
 
-
-module.exports = model("Post", postModel);
+const postModel = model("Post", postSchema);
+module.exports = postModel;
