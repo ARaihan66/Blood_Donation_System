@@ -10,10 +10,12 @@ app.use(cookieParser());
 const user = require('./Routers/userRouter');
 const userPost = require('./Routers/postRouter');
 const userComment = require('./Routers/commentRouter');
+const newsFeed = require('./Routers/newsFeedRouter');
 
 app.use('/api/user', user);
 app.use('/api/post', userPost);
 app.use('/api/comment', userComment);
+app.use('/api/newsFeed', newsFeed);
 
 app.use(errorHandler);
 
