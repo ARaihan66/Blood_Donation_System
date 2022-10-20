@@ -13,6 +13,12 @@ const userSchema = Schema({
         trim: true
     },
 
+    blood_group: {
+        type: String,
+        required: [true, "Blood group is required"],
+        enum: ['A', 'A+', 'AB+', 'AB-', 'B+', 'B-', 'O+', 'O-']
+    },
+
     email: {
         type: String,
         required: [true, "Email is required"],
@@ -26,14 +32,6 @@ const userSchema = Schema({
         maxlenght: [15, "Maximum length of password is 15 charecters"],
         required: [true, "Password is required"]
     },
-
-    bloodGroup: {
-        type: String
-        // required: [true, "Blood group is required"]
-        //enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O-', 'O+'],
-        // default: 'A+'
-    },
-
 
     avater: {
         public_id: {

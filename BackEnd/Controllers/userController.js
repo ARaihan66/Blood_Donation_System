@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 // User registration
 exports.createAccount = async (req, res) => {
 
-    const { name, email, password } = req.body;
+    const { name, email, password, blood_group } = req.body;
 
     let user = await User.findOne({ email });
 
@@ -19,6 +19,7 @@ exports.createAccount = async (req, res) => {
         name: name,
         email: email,
         password: password,
+        blood_group: blood_group,
         avater: {
             public_id: 'www.myPicture.com',
             url: 'www.myUrl.com'
