@@ -9,9 +9,11 @@ app.use(cookieParser());
 
 const user = require('./Routers/userRouter');
 const userPost = require('./Routers/postRouter');
+const userComment = require('./Routers/commentRouter');
 
 app.use('/api/user', user);
 app.use('/api/post', userPost);
+app.use('/api/comment', userComment);
 
 app.use(errorHandler);
 

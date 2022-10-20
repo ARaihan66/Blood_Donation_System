@@ -1,15 +1,15 @@
 const express = require('express');
 const { authenticatedUser } = require('../Authentication/authentication');
-const { createPost, updatePost, deletePost } = require('../Controllers/postController.js');
+const { createComment, updateComment, deleteComment } = require('../Controllers/commentController.js');
 const router = express.Router();
 
 router.route('/create')
-    .post(authenticatedUser, createPost)
+    .post(authenticatedUser, createComment)
 
 router.route('/update')
-    .put(authenticatedUser, updatePost)
+    .put(authenticatedUser, updateComment)
 
 router.route('/delete/:id')
-    .delete(authenticatedUser, deletePost)
+    .delete(authenticatedUser, deleteComment)
 
 module.exports = router;

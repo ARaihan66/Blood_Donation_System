@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const commentSchema = Schema({
-    comments: [{
+    commentData: [{
         type: String,
         required: true,
         maxlength: [3000, "Maximum length of your comment is 3000 words"]
