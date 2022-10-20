@@ -6,8 +6,9 @@ exports.getNewsFeed = async (req, res) => {
     const postData = await Post.find();
     const commentData = await Comment.find();
 
-    if (!commentData) {
-        res.status(400).json({
+
+    if (!commentData && !postData) {
+        return res.status(400).json({
             success: false,
             message: "No post is available!!!"
         })
