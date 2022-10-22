@@ -16,7 +16,7 @@ const userSchema = Schema({
     blood_group: {
         type: String,
         required: [true, "Blood group is required"],
-        enum: ['A', 'A+', 'AB+', 'AB-', 'B+', 'B-', 'O+', 'O-']
+        enum: ['A+', 'A+', 'AB+', 'AB-', 'B+', 'B-', 'O+', 'O-', 'A Positive', 'A positive', 'AB Positive', 'AB positive', 'B Positive', 'B positive', 'O Positive', 'O positive', 'A Negative', 'A negative', 'AB Negative', 'AB negative', 'B Negative', 'B negative', 'O Negative', 'O negative']
     },
 
     email: {
