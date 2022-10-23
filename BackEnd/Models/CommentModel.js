@@ -23,7 +23,7 @@ const commentSchema = Schema({
             default: Date.now()
         }
     }
-})
+}, { timestamps: true })
 
 const commentModel = model("Comments", commentSchema);
 module.exports = commentModel;

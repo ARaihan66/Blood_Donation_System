@@ -13,7 +13,7 @@ exports.createAccount = async (req, res) => {
     let user = await User.findOne({ email });
 
     if (user) {
-        return res.status(404).send("User already registired with this email")
+        return res.status(404).send("User was already registired with this email")
     }
     user = await User.create({
         name: name,
@@ -203,7 +203,15 @@ exports.resetPassword = async (req, res) => {
         })
     }
 
-    const password = req.body.password;
+    const { password, confirmPassword } = req.body;
+
+    if (password !== confirmPassword) {
+        res.status(400).json({
+            success: false,
+            message: "Password don't match!!!"
+        })
+    }
+
     const hashPassword = await bcrypt.hash(password, 10);
 
     const user = await User.findByIdAndUpdate({ _id: tokenData._id }, { $set: { password: hashPassword, randomToken: '' } }, { new: true });
