@@ -2,13 +2,21 @@ const { findById, findByIdAndUpdate, updateOne } = require('../Models/UserModel'
 const User = require('../Models/UserModel');
 const sendToken = require('../Utils/JwtToken.js');
 const sendMail = require('../Utils/sendMail.js');
+const sendOtp = require('../Utils/sendMail.js');
 const randomstring = require('randomstring');
 const bcrypt = require('bcrypt');
+const otpGenerator = require('otp-generator');
 
 // User registration
 exports.createAccount = async (req, res) => {
 
     const { name, email, password, blood_group } = req.body;
+
+    const OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+
+    console.log(OTP);
+
+    sendOtp(email, OTP);
 
     let user = await User.findOne({ email });
 
@@ -27,7 +35,6 @@ exports.createAccount = async (req, res) => {
     })
 
     sendToken(user, 200, res);
-
 
 }
 
@@ -76,9 +83,6 @@ exports.userLogout = async (req, res) => {
         success: true,
         message: "Successfully logout !!"
     })
-
-
-
 }
 
 
@@ -252,5 +256,17 @@ exports.getSingleUser = async (req, res) => {
     })
 
 }
+
+// Donation Date
+exports.donationDate = async (req, res) => {
+    const user = await User.findByIdAndUpdate(req.user._id, { $set: { user_donation: new Date() } }, { new: true });
+
+    res.status(200).json({
+        success: true,
+        user: user
+    })
+}
+
+
 
 

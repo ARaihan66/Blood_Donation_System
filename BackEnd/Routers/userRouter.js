@@ -10,7 +10,8 @@ const {
     getAllUser,
     getSingleUser,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    donationDate
 } = require("../Controllers/userController");
 const router = express.Router();
 
@@ -43,6 +44,9 @@ router.route('/all/users')
 
 router.route('/single/:id')
     .get(authenticatedUser, authorizeRole('admin'), getSingleUser)
+
+router.route('/donation')
+    .post(authenticatedUser, donationDate)
 
 
 module.exports = router;

@@ -15,8 +15,7 @@ const userSchema = Schema({
 
     blood_group: {
         type: String,
-        required: [true, "Blood group is required"],
-        enum: ['A+', 'A+', 'AB+', 'AB-', 'B+', 'B-', 'O+', 'O-']
+        required: [true, "Blood group is required"]
     },
 
     email: {
@@ -49,6 +48,17 @@ const userSchema = Schema({
         type: String,
         enum: ['user', 'admin'],
         default: "user"
+    },
+
+    user_donation: {
+        type: Date,
+        default: ''
+    },
+
+
+    donation_time: {
+        type: String,
+        default: ''
     },
 
     randomToken: {
