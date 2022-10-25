@@ -64,10 +64,6 @@ exports.createOtp = async (req, res, next) => {
         }, { new: true })
     }
 
-    // req.user = await Otp.findOne({ email: email });
-
-    // console.log(req.user);
-
     //res.redirect('http://localhost:5000/api/user/create/account');
 
     res.status(200).json({
@@ -81,16 +77,15 @@ exports.createOtp = async (req, res, next) => {
 
 //User registration using otp
 exports.createAccount = async (req, res) => {
-    const { email, otp, name, password, blood_group } = req.body;
+    const { otp, name, password, blood_group } = req.body;
 
-    const otpUser = await Otp.findOne({ email: email })
+    const otpUser = await Otp.findOne({ otp: otp });
 
-    console.log(otpUser);
 
     if (otp == otpUser.otp) {
-        user = await User.create({
+        const user = await User.create({
             name: name,
-            email: email,
+            email: otpUser.email,
             password: password,
             blood_group: blood_group,
             avater: {
@@ -99,14 +94,25 @@ exports.createAccount = async (req, res) => {
             }
         })
 
-        sendToken(user, 200, res);
+        return res.status(200).json({
+            seccess: true,
+            message: "Registration Successful!!!"
+        })
     }
     else {
-        res.status(400).json({
+        return res.status(400).json({
             seccess: false,
             message: "OTP not match!!!"
         })
     }
+
+    // if (otpUser.email == userFind.email) {
+    //     return res.status(400).json({
+    //         success: false,
+    //         message: "User already registered!!"
+    //     })
+    // }
+
 
 }
 
@@ -117,7 +123,7 @@ exports.userLogin = async (req, res) => {
 
 
     if (!email || !password) {
-        res.status(400).json({
+        return res.status(400).json({
             success: true,
             message: "Please provide email or password!!"
         })
@@ -242,7 +248,8 @@ exports.updatePassword = async (req, res, next) => {
 
 }
 
-// Forget password
+
+// Forget password send OTP
 exports.forgetPassword = async (req, res) => {
     const { email } = req.body;
     let userData = await User.findOne({ email });
@@ -253,35 +260,77 @@ exports.forgetPassword = async (req, res) => {
         })
     }
 
-    const tempToken = randomstring.generate();
+    const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
 
-    const user = await User.updateOne({ email }, { $set: { token: tempToken } });
-    sendMail(userData.name, userData.email, tempToken);
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: {
+            user: process.env.EMAIL, // generated ethereal user
+            pass: process.env.PASSWORD, // generated ethereal password
+        },
+    });
 
-    res.status(400).json({
-        success: true,
-        message: "Please check your mail and reset password !!"
+    await transporter.sendMail({
+        from: process.env.EMAIL, // sender address
+        to: email, // list of receivers
+        subject: "OTP code from Blood Cell application", // Subject line
+        text: OTP
+    }, (error, data) => {
+        if (error) {
+            console.log(error.message)
+        }
+        else {
+            console.log("Mail has seccessfully sent", data.response)
+        }
     })
 
+    const otpEmail = await Otp.findOne({ email: email });
+
+    if (!otpEmail) {
+        await Otp.create({
+            email: email,
+            otp: OTP
+        })
+
+    }
+
+    else {
+        await Otp.updateOne({ email: email }, {
+            $set: {
+                otp: OTP
+            }
+        }, { new: true })
+    }
+
+    //res.redirect('http://localhost:5000/api/user/create/account');
+
+    res.status(200).json({
+        success: true,
+        OTP: OTP
+    })
 }
 
 
-// Reset password
-exports.resetPassword = async (req, res) => {
-    const token = req.query.token;
 
-    const tokenData = await User.findOne({ token: token });
-    if (!tokenData) {
+// Reset password receive OTP
+exports.resetPassword = async (req, res) => {
+    const { otp, password, confirmPassword } = req.body;
+
+    const otpUser = await Otp.findOne({ otp: otp });
+
+    const userData = await User.findOne({ email: otpUser.email });
+    if (!userData) {
         return res.status(400).json({
             seccess: false,
             message: "User is not found with this mail !!"
         })
     }
 
-    const { password, confirmPassword } = req.body;
-
     if (password !== confirmPassword) {
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: "Password don't match!!!"
         })
@@ -289,13 +338,24 @@ exports.resetPassword = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.findByIdAndUpdate({ _id: tokenData._id }, { $set: { password: hashPassword, randomToken: '' } }, { new: true });
+    if (otp == otpUser.otp) {
+        user = await User.updateOne({ email: otpUser.email }, {
+            $set: {
+                password: hashPassword,
+            }
+        }, { new: true })
 
-    res.status(200).json({
-        success: true,
-        message: "Password is successfully reseted !!",
-        User: user
-    })
+        res.status(200).json({
+            success: true,
+            message: `Password: ${hashPassword}`
+        })
+    }
+    else {
+        return res.status(400).json({
+            seccess: false,
+            message: "OTP not match!!!"
+        })
+    }
 }
 
 // Get all user ------ Admin
@@ -315,7 +375,7 @@ exports.getSingleUser = async (req, res) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-        res.status(401).json({
+        return res.status(401).json({
             success: false,
             message: "User is not found !!"
         })

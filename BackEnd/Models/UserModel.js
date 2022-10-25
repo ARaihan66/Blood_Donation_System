@@ -64,13 +64,7 @@ const userSchema = Schema({
     donation_time: {
         type: String,
         default: ''
-    },
-
-    randomToken: {
-        type: String,
-        default: ''
     }
-
 }, { timestamps: true })
 
 // Hash password
