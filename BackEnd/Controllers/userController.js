@@ -1,40 +1,112 @@
-const { findById, findByIdAndUpdate, updateOne } = require('../Models/UserModel');
 const User = require('../Models/UserModel');
+const Otp = require('../Models/OtpModel');
 const sendToken = require('../Utils/JwtToken.js');
 const sendMail = require('../Utils/sendMail.js');
 const sendOtp = require('../Utils/sendMail.js');
 const randomstring = require('randomstring');
 const bcrypt = require('bcrypt');
-const otpGenerator = require('otp-generator');
+const nodemailer = require('nodemailer');
 
-// User registration
-exports.createAccount = async (req, res) => {
 
-    const { name, email, password, blood_group } = req.body;
+// User registration otp send
+exports.createOtp = async (req, res, next) => {
 
-    const OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
-
-    console.log(OTP);
-
-    sendOtp(email, OTP);
+    const { email } = req.body;
 
     let user = await User.findOne({ email });
-
     if (user) {
         return res.status(404).send("User was already registired with this email")
     }
-    user = await User.create({
-        name: name,
-        email: email,
-        password: password,
-        blood_group: blood_group,
-        avater: {
-            public_id: 'www.myPicture.com',
-            url: 'www.myUrl.com'
+
+    const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
+
+    //console.log(OTP);
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: {
+            user: process.env.EMAIL, // generated ethereal user
+            pass: process.env.PASSWORD, // generated ethereal password
+        },
+    });
+
+    await transporter.sendMail({
+        from: process.env.EMAIL, // sender address
+        to: email, // list of receivers
+        subject: "OTP code from Blood Cell application", // Subject line
+        text: OTP
+    }, (error, data) => {
+        if (error) {
+            console.log(error.message)
+        }
+        else {
+            console.log("Mail has seccessfully sent", data.response)
         }
     })
 
-    sendToken(user, 200, res);
+    const otpEmail = await Otp.findOne({ email: email });
+
+    if (!otpEmail) {
+        await Otp.create({
+            email: email,
+            otp: OTP
+        })
+
+    }
+
+    else {
+        await Otp.updateOne({ email: email }, {
+            $set: {
+                otp: OTP
+            }
+        }, { new: true })
+    }
+
+    // req.user = await Otp.findOne({ email: email });
+
+    // console.log(req.user);
+
+    //res.redirect('http://localhost:5000/api/user/create/account');
+
+    res.status(200).json({
+        success: true,
+        OTP: OTP
+    })
+
+
+}
+
+
+//User registration using otp
+exports.createAccount = async (req, res) => {
+    const { email, otp, name, password, blood_group } = req.body;
+
+    const otpUser = await Otp.findOne({ email: email })
+
+    console.log(otpUser);
+
+    if (otp == otpUser.otp) {
+        user = await User.create({
+            name: name,
+            email: email,
+            password: password,
+            blood_group: blood_group,
+            avater: {
+                public_id: 'www.myPicture.com',
+                url: 'www.myUrl.com'
+            }
+        })
+
+        sendToken(user, 200, res);
+    }
+    else {
+        res.status(400).json({
+            seccess: false,
+            message: "OTP not match!!!"
+        })
+    }
 
 }
 
@@ -90,7 +162,6 @@ exports.userLogout = async (req, res) => {
 exports.userProfile = async (req, res) => {
 
     const user = await User.findById(req.user.id);
-
     res.status(200).json({
         success: true,
         User: user

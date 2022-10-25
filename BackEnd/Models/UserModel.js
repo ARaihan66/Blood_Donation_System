@@ -5,6 +5,10 @@ const bcrypt = require('bcrypt');
 
 
 const userSchema = Schema({
+    otp: {
+        type: Number,
+
+    },
     name: {
         type: String,
         required: [true, "Name is required"],
@@ -20,9 +24,10 @@ const userSchema = Schema({
 
     email: {
         type: String,
-        required: [true, "Email is required"],
-        validate: [validator.isEmail, "Email is not valid"],
-        unique: true
+        //required: [true, "Email is required"],
+        // validate: [validator.isEmail, "Email is not valid"],
+        //unique: true,
+        default: ''
     },
 
     password: {
