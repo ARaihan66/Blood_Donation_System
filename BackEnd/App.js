@@ -12,7 +12,7 @@ const userPost = require('./Routers/postRouter');
 const userComment = require('./Routers/commentRouter');
 const postNewsFeed = require('./Routers/postNewsFeedRouter');
 const commentNewsFeed = require('./Routers/commentNewsFeedRouter');
-const blood_search = require('./Routers/searchRouter');
+const blood_search = require('./Routers/searchDonerRouter');
 
 app.use('/api/user', user);
 app.use('/api/post', userPost);

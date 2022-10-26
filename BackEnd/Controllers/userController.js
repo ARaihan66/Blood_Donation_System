@@ -82,6 +82,7 @@ exports.createAccount = async (req, res) => {
 
     if (otp == otpUser.otp) {
         const user = await User.create({
+            otp: otp,
             name: name,
             email: otpUser.email,
             password: password,
@@ -380,7 +381,7 @@ exports.getSingleUser = async (req, res) => {
 
 // Donation Date
 exports.donationDate = async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.user._id, { $set: { user_donation: new Date() } }, { new: true });
+    const user = await User.findByIdAndUpdate(req.user._id, { $set: { donationTime: new Date() } }, { new: true });
 
     res.status(200).json({
         success: true,

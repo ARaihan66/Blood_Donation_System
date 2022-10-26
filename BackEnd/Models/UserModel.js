@@ -51,13 +51,7 @@ const userSchema = Schema({
         default: "user"
     },
 
-    user_donation: {
-        type: Date,
-        default: ''
-    },
-
-
-    donation_time: {
+    donationTime: {
         type: String,
         default: ''
     }

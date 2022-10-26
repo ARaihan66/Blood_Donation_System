@@ -3,12 +3,16 @@ const User = require('../Models/UserModel.js');
 
 // Create post
 exports.createPost = async (req, res) => {
-    const postData = req.body.postData;
+    const { location, hospitalName, amountOfBlood, phoneNumber, requiredBloodGroup, patientDisease } = req.body;
     const user = await User.findById(req.user.id);
 
     const userPost = await Post.create({
-        postData: postData,
-
+        location: location,
+        hospitalName: hospitalName,
+        amountOfBlood: amountOfBlood,
+        phoneNumber: phoneNumber,
+        requiredBloodGroup: requiredBloodGroup,
+        patientDisease: patientDisease,
         postedUser: {
             userId: user._id,
             name: user.name
@@ -24,10 +28,10 @@ exports.createPost = async (req, res) => {
 
 // Update post
 exports.updatePost = async (req, res) => {
-    const { postData, id } = req.body;
+    const { location, hospitalName, amountOfBlood, phoneNumber, requiredBloodGroup, patientDisease, postId } = req.body;
     const user = await User.findById(req.user.id);
 
-    const post = await Post.findById(id);
+    const post = await Post.findById(postId);
 
     if (!post) {
         return res.status(400).json({
@@ -36,9 +40,18 @@ exports.updatePost = async (req, res) => {
         })
     }
 
-    const updatePost = await Post.findByIdAndUpdate(id, {
+    const updatePost = await Post.findByIdAndUpdate(postId, {
         $set: {
-            postData: postData,
+            location: location,
+            hospitalName: hospitalName,
+            amountOfBlood: amountOfBlood,
+            phoneNumber: phoneNumber,
+            requiredBloodGroup: requiredBloodGroup,
+            patientDisease: patientDisease,
+            postedUser: {
+                userId: user._id,
+                name: user.name
+            }
         }
     }, { new: true })
 

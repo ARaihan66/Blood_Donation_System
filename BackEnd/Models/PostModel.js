@@ -6,7 +6,7 @@ const postSchema = Schema({
         type: String,
         required: true
     },
-    hospital_name: {
+    hospitalName: {
         type: String,
         required: true
     },
