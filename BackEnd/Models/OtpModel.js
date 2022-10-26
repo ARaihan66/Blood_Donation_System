@@ -10,9 +10,8 @@ const otpSchema = Schema({
     },
     otp: {
         type: Number,
-
     }
-})
+}, { timestamps: true })
 
 const OtpModel = model("Opt", otpSchema);
 module.exports = OtpModel;

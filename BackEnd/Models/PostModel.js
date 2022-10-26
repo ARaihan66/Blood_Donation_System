@@ -2,10 +2,37 @@ const { Schema, model } = require('mongoose');
 
 
 const postSchema = Schema({
-    postData: [{
+    location: {
         type: String,
-        required: true,
-    }],
+        required: true
+    },
+    hospital_name: {
+        type: String,
+        required: true
+    },
+    amountOfBlood: {
+        type: Number,
+        required: true
+    },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
+    requiredBloodGroup: {
+        type: String,
+        required: true
+    },
+
+    patientDisease: {
+        type: String,
+        required: true
+    },
+
+    statusTime: {
+        type: Date,
+        default: Date.now()
+    },
+
     postedUser: {
         userId: {
             type: Schema.Types.ObjectId,
@@ -15,10 +42,6 @@ const postSchema = Schema({
         name: {
             type: String,
             required: true
-        },
-        createAt: {
-            type: Date,
-            default: Date.now()
         }
 
     }

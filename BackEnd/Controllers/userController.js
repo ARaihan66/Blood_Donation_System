@@ -3,7 +3,6 @@ const Otp = require('../Models/OtpModel');
 const sendToken = require('../Utils/JwtToken.js');
 const sendMail = require('../Utils/sendMail.js');
 const sendOtp = require('../Utils/sendMail.js');
-const randomstring = require('randomstring');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 
@@ -20,7 +19,6 @@ exports.createOtp = async (req, res, next) => {
 
     const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
 
-    //console.log(OTP);
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -105,14 +103,6 @@ exports.createAccount = async (req, res) => {
             message: "OTP not match!!!"
         })
     }
-
-    // if (otpUser.email == userFind.email) {
-    //     return res.status(400).json({
-    //         success: false,
-    //         message: "User already registered!!"
-    //     })
-    // }
-
 
 }
 
@@ -249,7 +239,7 @@ exports.updatePassword = async (req, res, next) => {
 }
 
 
-// Forget password send OTP
+// Forget password sending OTP
 exports.forgetPassword = async (req, res) => {
     const { email } = req.body;
     let userData = await User.findOne({ email });
@@ -315,7 +305,7 @@ exports.forgetPassword = async (req, res) => {
 
 
 
-// Reset password receive OTP
+// Reset password using OTP
 exports.resetPassword = async (req, res) => {
     const { otp, password, confirmPassword } = req.body;
 
