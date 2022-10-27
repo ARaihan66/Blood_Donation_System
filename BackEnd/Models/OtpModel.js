@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const validator = require('validator');
 
-const otpSchema = Schema({
+const otpSchema = new Schema({
     email: {
         type: String,
         required: [true, "Email is required"],
@@ -9,8 +9,13 @@ const otpSchema = Schema({
         unique: true
     },
     otp: {
-        type: Number,
+        type: Number
+    },
+    expiredAt: {
+        type: Date,
+        expires: 300
     }
+
 }, { timestamps: true })
 
 const OtpModel = model("Opt", otpSchema);

@@ -14,7 +14,7 @@ exports.createOtp = async (req, res, next) => {
 
     let user = await User.findOne({ email });
     if (user) {
-        return res.status(404).send("User was already registired with this email")
+        return res.status(400).send("User was already registired with this email")
     }
 
     const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
@@ -296,6 +296,7 @@ exports.forgetPassword = async (req, res) => {
         }, { new: true })
     }
 
+
     //res.redirect('http://localhost:5000/api/user/create/account');
 
     res.status(200).json({
@@ -311,14 +312,6 @@ exports.resetPassword = async (req, res) => {
     const { otp, password, confirmPassword } = req.body;
 
     const otpUser = await Otp.findOne({ otp: otp });
-
-    const userData = await User.findOne({ email: otpUser.email });
-    if (!userData) {
-        return res.status(400).json({
-            seccess: false,
-            message: "User is not found with this mail !!"
-        })
-    }
 
     if (password !== confirmPassword) {
         return res.status(400).json({
