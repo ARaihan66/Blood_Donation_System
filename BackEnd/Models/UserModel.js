@@ -30,7 +30,8 @@ const userSchema = Schema({
         type: String,
         minlength: [4, "Minimum length of password is 4 charecters"],
         maxlenght: [15, "Maximum length of password is 15 charecters"],
-        required: [true, "Password is required"]
+        required: [true, "Password is required"],
+        select: false
     },
 
     avater: {
