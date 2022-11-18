@@ -34,8 +34,9 @@ const SearchInput = styled.input`
 flex: 4;
 border: none;
 width: 80%;
-height: 30px;
-padding-left: 10px;
+height: 40px;
+padding-left: 15px;
+font-size:18px;
 `
 const SearchIcon = styled.span`
 margin: 0px 10px;

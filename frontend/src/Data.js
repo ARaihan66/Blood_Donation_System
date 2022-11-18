@@ -1,3 +1,6 @@
+import profile1 from './Picture/profile1.jpg'
+import profile2 from './Picture/profile2.jpg'
+
 export const postData = [
     {
         id: 1,
@@ -43,4 +46,13 @@ export const postData = [
         updatedAt: '11:32 PM',
         disease: 'Cancer'
     },
+]
+
+export const userData = [
+    {
+        name: 'Shakil',
+        email: 'shakilamrin1234@gmail.com',
+        password: 'shakil017',
+        img: profile1
+    }
 ]
