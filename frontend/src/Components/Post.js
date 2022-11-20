@@ -2,18 +2,25 @@ import styled from "styled-components";
 import { FaHospital, FaCalendar, FaCommentDots, FaMapMarkerAlt, FaDisease } from "react-icons/fa";
 import { MdBloodtype, MdPhoneInTalk } from "react-icons/md";
 const Container = styled.div`
-box-shadow: 3px 3px 3px 5px gray;
+box-shadow: 2px 2px 8px 8px gray;
 margin: 40px 0px;
 width: 700px;
-height: 400px;
+height: 450px;
 border-radius: 6px;
 `
 
 const Wrapper = styled.div`
-background-color: #c8dfba;
 height: 100%;
 `
-
+const UserName = styled.span`
+height: 10%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+font-weight: 450;
+background-color: #232b2b;
+`
 const ReqHeader = styled.div`
 display: flex;
 align-items: center;
@@ -23,18 +30,14 @@ font-size: 25px;
 font-weight: 500;
 height: 20%;
 `
-const UserName = styled.span`
-margin: 10px 5px;
-`
 
 const PostContainer = styled.div`
 display: flex;
-height: 80%;
+height: 70%;
 `
 const BloodGroup = styled.div`
 flex: 2;
 border: 1px solid gray;
-background-color: #ffbcec;
 font-size: 70px;
 font-weight: 500;
 display: flex;
@@ -42,13 +45,25 @@ align-items: center;
 justify-content: center;
 border-radius: 5px;
 `
+const Group = styled.div`
+height: 150px;
+width: 150px;
+border-radius: 50%;
+background-color:white;
+color: red;
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
 const InfoContainer = styled.div`
 flex: 3;
+background-color:black;
 `
 const PostText = styled.div`
 text-align: center;
 margin-top: 20px;
-font-size: 20px;
+font-size: 18px;
 font-weight:500;
 `
 const PostOn = styled.span`
@@ -59,7 +74,7 @@ flex: 1;
 display: flex;
 justify-content: center;
 margin: 10px 5px;
-font-size: 25px;
+font-size: 22px;
 font-weight:500;
 `
 const Address = styled.span`
@@ -74,7 +89,7 @@ justify-content: space-between;
 `
 const Comment = styled.button`
 flex: 1;
-font-size: 25px;
+font-size: 22px;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -82,10 +97,6 @@ border: 1px solid gray;
 border-radius: 8px;
 cursor: pointer;
 margin: 0px 5px;
-
-&:hover{
-    background-color: #e6e6fa;
-}
 `
 
 const CommentIcon = styled.span`
@@ -97,7 +108,7 @@ margin: 5px;
 `
 const GoogleMap = styled.button`
 flex: 1;
-font-size: 25px;
+font-size: 22px;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -105,10 +116,6 @@ border: 1px solid gray;
 border-radius: 8px;
 cursor: pointer;
 margin: 0px 5px;
-
-&:hover{
-    background-color: #e6e6fa;
-}
 `
 const MapIcon = styled.span`
 display: flex;
@@ -120,13 +127,15 @@ const Post = (props) => {
     return (
         <Container>
             <Wrapper>
+                <UserName> {props.item.name}</UserName>
                 <ReqHeader>
-                    Request From
-                    <UserName>{props.item.name}</UserName>
+                    REQUEST FOR
                 </ReqHeader>
                 <PostContainer>
                     <BloodGroup>
-                        {props.item.bloodGroup}
+                        <Group>
+                            {props.item.bloodGroup}
+                        </Group>
                     </BloodGroup>
                     <InfoContainer>
                         <PostText>Published On

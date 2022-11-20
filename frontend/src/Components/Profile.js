@@ -1,6 +1,7 @@
-import styled from "styled-components"
-import { userData } from "../Data"
-import profile1 from '../Picture/profile1.jpg'
+import styled from "styled-components";
+import { userData } from "../Data";
+import profile1 from '../Picture/profile1.jpg';
+import ModalPage from "../Pages/ModalPage";
 const Container = styled.div`
 
 `
@@ -25,9 +26,11 @@ border-radius: 50%;
 margin: 10px 0px;
 `
 const Name = styled.h1`
-font-size: 24px;
-font-weight: 600;
+font-size: 20px;
+font-weight: 500;
 margin-bottom: 10px;
+background-color: #37959a;
+color: black;
 `
 
 const ProfileInfo = styled.div`
@@ -44,10 +47,9 @@ justify-content: center;
 align-items: center;
 font-size: 70px;
 font-weight: 500;
-border-radius: 5px;
 `
 const Blood = styled.div`
-width: 150px;
+width: 170px;
 height: 150px;
 border-radius:50%;
 background-color:white;
@@ -59,18 +61,21 @@ justify-content: center;
 const InfoContainer = styled.div`
 flex: 1;
 background-color: #eaf5f6;
-border-radius: 5px;
 `
 const Info = styled.div`
 display: flex;
 margin: 30px 25px;
+background-color: #eaf5f6;
+color: black;
 `
 const InfoText = styled.div`
 font-size: 24px;
-font-weight: 400;
+font-weight: 500;
 display: flex;
 align-items: center;
 justify-content: center;
+background-color: #eaf5f6;
+color: black;
 `
 const Data = styled.div`
 display: flex;
@@ -78,13 +83,20 @@ align-items: center;
 justify-content: center;
 font-size: 20px;
 margin: 0px 10px;
+background-color: #eaf5f6;
+color: black;
 `
 const Calender = styled.input`
 width: 50%;
 margin: 0px 10px ;
+background-color: #eaf5f6;
+color: black;
 `
-
-const Button = styled.button`
+const ButtonContainer = styled.div`
+display: flex;
+`
+const ButtonOne = styled.button`
+flex:1;
 width: 100%;
 height: 40px;
 font-size: 22px;
@@ -92,10 +104,44 @@ font-weight: 500;
 border: none;
 cursor: pointer;
 background-color: #cfded8;
-border-radius:5px;
+
 
 &:hover{
     background-color: #a4dac5;
+    border-radius:7px;
+}
+`
+const ButtonTwo = styled.button`
+flex:1;
+width: 100%;
+height: 40px;
+font-size: 22px;
+font-weight: 500;
+border: none;
+cursor: pointer;
+background-color: #cfded8;
+
+&:hover{
+    background-color: #a4dac5;
+    border-radius:10px;
+}
+`
+const ButtonThree = styled.button`
+flex: 2;
+width: 100%;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 500;
+border: none;
+cursor: pointer;
+background-color: #cfded8;
+
+
+&:hover{
+    background-color: #a4dac5;
+    border-radius:7px;
 }
 `
 
@@ -163,9 +209,17 @@ const Profile = () => {
                     </InfoContainer>
 
                 </ProfileInfo>
-                <Button>
-                    Edit/Update
-                </Button>
+                <ButtonContainer>
+                    <ButtonOne>
+                        LOG OUT
+                    </ButtonOne>
+                    <ButtonTwo>
+                        DELETE ACCOUNT
+                    </ButtonTwo>
+                    <ButtonThree>
+                        <ModalPage />
+                    </ButtonThree>
+                </ButtonContainer>
             </Wrapper>
         </Container>
     )

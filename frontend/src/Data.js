@@ -38,7 +38,7 @@ export const postData = [
     {
         id: 4,
         name: 'Rafee',
-        bloodGroup: 'O+',
+        bloodGroup: 'XY+',
         address: 'Cumilla',
         date: '16/11/2022',
         phone: '01767013859',
