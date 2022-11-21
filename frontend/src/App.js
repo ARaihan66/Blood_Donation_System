@@ -17,8 +17,8 @@ const Container = styled.div`
 function App() {
   return (
     <Container className='App'>
-      {/* <Navbar /> */}
-      {/* <Posts />
+      {/* <Navbar />
+      <Posts />
       <ProfilePage />
       <ContactPage /> */}
       <HomePage />

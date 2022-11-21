@@ -48,28 +48,45 @@ cursor: pointer;
     border: none;
 }
 `
+
 const BloodInfoContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
+background: #9c27b0;
 `
-const BloodInfo = styled.div`
-
+const BloodDonationInfo = styled.div`
+background: black;
+margin: 20px 15px;
+height: 100vh;
+width: 100vw;
 `
 const BloodHeading = styled.h1`
-
+text-align: center;
+margin: 10px 15px;
 `
-const BloodText = styled.span`
-
+const BloodText = styled.div`
+font-size: 18px;
+margin: 15px 15px;
+text-align: justify;
+`
+const List = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 15px 20px;
 `
 const ListText = styled.span`
-
-`
-const BloodListImg = styled.img`
-
+flex: 1;
 `
 const BloodImg = styled.img`
-
+height: 3%;
+width: 3%;
+`
+const BloodListImg = styled.img`
+margin: 20px 15px;
+height: 100vh;
+width: 100vw;
 `
 
 
@@ -82,41 +99,62 @@ const HomePage = () => {
                 <Text>EVERY BLOOD DONOR IS A HERO</Text>
                 <Button>GET START</Button>
             </TextContainer>
+
             <BloodInfoContainer>
-                <BloodInfo>
+                <BloodDonationInfo>
                     <BloodHeading>What Conditions Would Make You Ineligible to Be a Donor?</BloodHeading>
                     <BloodText>
                         You will not be eligible to donate blood or platelets if you:
                     </BloodText>
-                    <ListText><BloodImg src={BloodDrop} />
-                        Have tested positive for hepatitis B or hepatitis C, lived with or had sexual contact in the past 12 months with anyone who has hepatitis B or symptomatic hepatitis C.
-                        <ListText />
-                        <ListText><BloodImg src={BloodDrop} />
-                            Had a tattoo in the past 3 months or received a blood transfusion (except with your own blood) in the past 3 months.
-                            <ListText />
-                            <ListText><BloodImg src={BloodDrop} />
-                                Have ever had a positive test for the AIDS virus.
-                                <ListText />
-                                <ListText><BloodImg src={BloodDrop} />
-                                    Are a man who has had sex with another man in the past 3 months.
-                                    <ListText />
-                                    <ListText><BloodImg src={BloodDrop} />
-                                        Have used injectable drugs, including anabolic steroids, unless prescribed by a physician in the past 3 months.
-                                        <ListText />
-                                        <ListText><BloodImg src={BloodDrop} />
-                                            Have engaged in prostitution in the past 3 months.
-                                            <ListText />
-                                            <ListText><BloodImg src={BloodDrop} />
-                                                Have traveled in the past 3 months, or lived in the past three years, in an area where malaria is endemic
-                                            </ListText>
-                                            <BloodText>
-                                                Blood donors must wait at least 56 days between blood donations and 7 days before donating platelets. Platelet donors may donate once every seven days, not to exceed six times in any eight-week period, and must wait 7 days before donating blood.
-                                            </BloodText>
-                                        </BloodInfo>
-                                        <BloodListImg src={BloodChart} />
-                                    </BloodInfoContainer>
-                                </Container>
-                                )
-}
 
-                                export default HomePage
+                    <List>
+                        <BloodImg src={BloodDrop} /><ListText>
+                            Have tested positive for hepatitis B or hepatitis C, lived with or had sexual contact in the past 12 months with anyone who has hepatitis B or symptomatic hepatitis C.
+                        </ListText>
+                    </List>
+
+                    <List>
+                        <BloodImg src={BloodDrop} /><ListText>
+                            Had a tattoo in the past 3 months or received a blood transfusion (except with your own blood) in the past 3 months.
+                        </ListText>
+                    </List>
+
+                    <List>
+                        <BloodImg src={BloodDrop} /><ListText>
+                            Have ever had a positive test for the AIDS virus.
+                        </ListText>
+                    </List>
+
+                    <List>
+                        <BloodImg src={BloodDrop} /><ListText>
+                            Are a man who has had sex with another man in the past 3 months.
+                        </ListText>
+                    </List>
+                    <List>
+                        <BloodImg src={BloodDrop} /><ListText>
+                            Have used injectable drugs, including anabolic steroids, unless prescribed by a physician in the past 3 months.
+                        </ListText>
+                    </List>
+
+                    <List>
+                        <BloodImg src={BloodDrop} /><ListText>
+                            Have engaged in prostitution in the past 3 months.
+                        </ListText>
+                    </List>
+
+                    <List>
+                        <BloodImg src={BloodDrop} /><ListText>
+                            Have traveled in the past 3 months, or lived in the past three years, in an area where malaria is endemic
+                        </ListText>
+                    </List>
+
+                    <BloodText>
+                        Blood donors must wait at least 56 days between blood donations and 7 days before donating platelets. Platelet donors may donate once every seven days, not to exceed six times in any eight-week period, and must wait 7 days before donating blood.
+                    </BloodText>
+                </BloodDonationInfo>
+                <BloodListImg src={BloodChart} />
+            </BloodInfoContainer>
+        </Container>
+    )
+}
+export default HomePage;
