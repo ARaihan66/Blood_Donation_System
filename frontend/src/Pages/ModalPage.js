@@ -1,38 +1,37 @@
-import React from 'react';
-// import './App.css';
-import { StyledModal } from "../Components/reuseableModal.js";
+import React, { useState } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-function ModalPage() {
-    const [isPopOpen, setIsPosOpen] = React.useState(false)
+function ModalPage(args) {
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <span
-                    style={{
-                        display: 'flex',
-                        cursor: 'pointer',
-                        fontSize: '22px',
-                        backgroundColor: '#cfded8',
-                        width: '100%'
-                    }}
-                    onClick={() => setIsPosOpen(!isPopOpen)}
-                >
-                    EDIT/UPDATE
-                </span>
-                <StyledModal
-                    show={isPopOpen}
-                    handleClose={() => setIsPosOpen(false)}
-                >
-                    <div style={{ border: '1px solid white' }}>
-
-                        <h1 style={{ margin: '20px' }}> UPDATE </h1>
-
-                    </div>
-
-                </StyledModal>
-            </header>
-        </div >
+        <div>
+            <Button color="danger" onClick={toggle}>
+                Click Me
+            </Button>
+            <Modal isOpen={modal} toggle={toggle} {...args}>
+                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                <ModalBody>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in
+                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={toggle}>
+                        Do Something
+                    </Button>{' '}
+                    <Button color="secondary" onClick={toggle}>
+                        Cancel
+                    </Button>
+                </ModalFooter>
+            </Modal>
+        </div>
     );
 }
 

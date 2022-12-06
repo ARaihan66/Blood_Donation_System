@@ -17,10 +17,10 @@ const Container = styled.div`
 function App() {
   return (
     <Container className='App'>
-      {/* <Navbar />
+      <Navbar />
       <Posts />
       <ProfilePage />
-      <ContactPage /> */}
+      <ContactPage />
       <HomePage />
     </Container>
 

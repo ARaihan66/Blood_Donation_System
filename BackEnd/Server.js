@@ -1,11 +1,7 @@
 const { default: mongoose } = require('mongoose');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const app = require('./App');
 
-//Config
-dotenv.config({
-    path: 'BackEnd/config/.env'
-})
 
 
 //Database Connection
