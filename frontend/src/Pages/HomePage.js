@@ -95,7 +95,7 @@ const HomePage = () => {
         <Container>
             <Video src={BackgroundVideo} muted autoPlay loop />
             <TextContainer>
-                <Heading>WELCOME TO BE A NEW DONOR</Heading>
+                <Heading>“BE GRATEFUL AND DONATE BLOOD”</Heading>
                 <Text>EVERY BLOOD DONOR IS A HERO</Text>
                 <Button>GET START</Button>
             </TextContainer>

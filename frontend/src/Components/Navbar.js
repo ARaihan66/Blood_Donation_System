@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { CiSearch } from 'react-icons/ci';
 import BloodDrop from '../Logo/BloodDrop.png';
+import { NavLink } from 'react-router-dom';
 
 const Container = styled.div`
 margin: 0px 0px;
@@ -70,6 +71,11 @@ align-items: center;
 const MenuItem = styled.div`
 margin-left: 15px;
 cursor: pointer;
+
+&:hover{
+font-size: 18px;
+color: green;
+}
 `
 
 const Navbar = () => {
@@ -101,11 +107,11 @@ const Navbar = () => {
                     </SearchContainer>
                 </Center>
                 <Right>
-                    <MenuItem>HOME</MenuItem>
-                    <MenuItem>FEED</MenuItem>
-                    <MenuItem>REQUEST</MenuItem>
-                    <MenuItem>CONTACT US</MenuItem>
-                    <MenuItem>ACCOUNT</MenuItem>
+                    <MenuItem><NavLink to='/' className='navlink'>HOME</NavLink></MenuItem>
+                    <MenuItem><NavLink to='/posts' className='navlink'>FEED</NavLink></MenuItem>
+                    <MenuItem><NavLink to='/' className='navlink'>REQUEST</NavLink></MenuItem>
+                    <MenuItem><NavLink to='/contact' className='navlink'>CONTACT US</NavLink></MenuItem>
+                    <MenuItem><NavLink to='/profile' className='navlink'>PROFILE</NavLink></MenuItem>
                 </Right>
             </Wrapper>
         </Container>

@@ -2,8 +2,11 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const errorHandler = require('./ErrorHandler/errorHandler.js')
 
+
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 

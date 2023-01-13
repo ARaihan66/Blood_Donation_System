@@ -9,3 +9,12 @@ body {
   background-color: black;
   color: gray;
 }
+
+.navlink {
+  color: azure;
+  text-decoration: none;
+}
+
+.active {
+  color: green;
+}
