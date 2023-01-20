@@ -3,10 +3,9 @@ import { userData } from "../Data";
 import profile1 from '../Picture/profile1.jpg';
 import ModalPage from "../Pages/ModalPage";
 const Container = styled.div`
-
 `
 const Wrapper = styled.div`
-margin: 10px 150px;
+margin: 80px 150px;
 height: 550px;
 `
 

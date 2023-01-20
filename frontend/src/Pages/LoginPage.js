@@ -125,7 +125,7 @@ const Login = () => {
     return (
         <Container>
             <LeftWrapper>
-                <Image src="https://t4.ftcdn.net/jpg/04/28/75/97/360_F_428759715_jsOPITlaytE3QXc2yI1D4U6uwZdVGkRp.jpg" />
+                <Image src="https://firstcareclinics.com/wp-content/uploads/2021/01/blood-donor.jpeg" />
             </LeftWrapper>
             <RightWrapper>
                 <Heading>

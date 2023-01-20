@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import { CiSearch } from 'react-icons/ci';
 import BloodDrop from '../Logo/BloodDrop.png';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
 margin: 0px 0px;
-background-color: #0d0d0d;
+background-color: rgb(87, 80, 62);
 color: white;
+position: fixed;
+top: 0;
+z-index: 2;
+overflow: hidden;
+width:100%;
 `
 
 const Wrapper = styled.div`
@@ -19,7 +24,7 @@ align-items: center;
 justify-content: center;
 `
 const Logo = styled.h1`
-
+font-size: 18px;
 `
 const BloodImg = styled.img`
 width: 15%;
@@ -37,21 +42,21 @@ border: 1px solid lightgray;
 margin: 8px;
 display: flex;
 border-radius: 5px;
+background-color: rgb(194, 178, 136);
 `
 const Select = styled.select`
 flex: 4;
 border: none;
 width: 80%;
 height: 40px;
-color: white;
 padding-left: 15px;
-font-size:18px;
+font-size:12px;
 border: none;
-background-color: #0d0d0d;
+outline: none;
 `
 const Option = styled.option`
 opacity: ${props => props.type};
-background-color: #0d0d0d;
+background-color: rgb(194, 178, 136);
 `
 const SearchIcon = styled.span`
 margin: 0px 18px;
@@ -71,10 +76,31 @@ align-items: center;
 const MenuItem = styled.div`
 margin-left: 15px;
 cursor: pointer;
+`
+const TopLink = styled(Link)`
+color: rgb(23, 23, 21);
+font-size: 14px;
+padding: 5px 10px;
+font-weight: 600;
+border-radius: 5px;
+text-decoration: none;
 
+&:hover, &:focus{
+color: white;
+background-color: rgb(23, 23, 21);
+}
+`
+
+const ContactLink = styled.a`
+color: rgb(23, 23, 21);
+font-size: 14px;
+padding: 5px 10px;
+font-weight: 600;
+border-radius: 5px;
+text-decoration: none;
 &:hover{
-font-size: 18px;
-color: green;
+color: white;
+background-color: rgb(23, 23, 21);
 }
 `
 
@@ -107,11 +133,11 @@ const Navbar = () => {
                     </SearchContainer>
                 </Center>
                 <Right>
-                    <MenuItem><NavLink to='/' className='navlink'>HOME</NavLink></MenuItem>
-                    <MenuItem><NavLink to='/posts' className='navlink'>FEED</NavLink></MenuItem>
-                    <MenuItem><NavLink to='/' className='navlink'>REQUEST</NavLink></MenuItem>
-                    <MenuItem><NavLink to='/contact' className='navlink'>CONTACT US</NavLink></MenuItem>
-                    <MenuItem><NavLink to='/profile' className='navlink'>PROFILE</NavLink></MenuItem>
+                    <MenuItem><TopLink to='/'>HOME</TopLink></MenuItem>
+                    <MenuItem><TopLink to='/posts'>FEED</TopLink></MenuItem>
+                    <MenuItem><TopLink to='/request'>REQUEST</TopLink></MenuItem>
+                    <MenuItem><TopLink to='/profile'>PROFILE</TopLink></MenuItem>
+                    <MenuItem><ContactLink href='#contact'>CONTACT US</ContactLink></MenuItem>
                 </Right>
             </Wrapper>
         </Container>

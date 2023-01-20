@@ -4,8 +4,8 @@ import BloodChart from '../Picture/BloodChart/BloodChart.jpeg'
 import BloodDrop from '../Picture/BloodDrop/BloodDrop.gif'
 
 const Container = styled.div`
-width: 100%;
-height: 100vh;
+/*width: 100%;*/
+/*height: 100vh;*/
 position: relative;
 box-sizing: border-box;
 `
@@ -13,38 +13,40 @@ const Video = styled.video`
 width: 100%;
 height: 100%;
 object-fit: cover;
-opacity: 0.1;
+opacity: 0.4;
 `
 const TextContainer = styled.div`
 position: absolute;
-width: 100%;
-height: 100%;
-top:0;
+/*width: 100%;
+height: 100%;*/
+top:20%;
+left: 35%;
 display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: column;
 `
 const Heading = styled.h1`
-
+font-size: 20px;
 `
 
 const Text = styled.span`
-font-size: 18px;
+font-size: 14px;
 margin: 10px 0px;
 `
 const Button = styled.button`
-padding: 10px 15px;
+padding: 15px 20px;
 margin: 10px 0px;
-font-size: 16px;
-background-color: none;
+font-size: 14px;
+background-color: rgb(231, 230, 240);
+color: rgb(15, 11, 56);
 border-radius: 5px;
 border: none;
 cursor: pointer;
 
 &:hover{
-    background-color: white;
-    color: black;
+    background-color:  rgb(15, 11, 56);
+    color: rgb(231, 230, 240);
     border: none;
 }
 `
@@ -53,22 +55,23 @@ const BloodInfoContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-background: #9c27b0;
+background: rgb(145, 17, 39);
 `
 const BloodDonationInfo = styled.div`
-background: black;
+background: rgb(176, 174, 184);
 margin: 20px 15px;
-height: 100vh;
-width: 100vw;
+border-radius: 10px;
 `
 const BloodHeading = styled.h1`
 text-align: center;
-margin: 10px 15px;
+margin: 20px 15px;
+color: rgb(145, 17, 39);
 `
 const BloodText = styled.div`
 font-size: 18px;
 margin: 15px 15px;
 text-align: justify;
+color: black;
 `
 const List = styled.div`
 display: flex;
@@ -78,15 +81,15 @@ margin: 15px 20px;
 `
 const ListText = styled.span`
 flex: 1;
+color: black;
 `
 const BloodImg = styled.img`
 height: 3%;
 width: 3%;
 `
 const BloodListImg = styled.img`
+border-radius: 10px;
 margin: 20px 15px;
-height: 100vh;
-width: 100vw;
 `
 
 

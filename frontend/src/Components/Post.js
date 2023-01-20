@@ -7,6 +7,7 @@ margin: 40px 0px;
 width: 700px;
 height: 450px;
 border-radius: 6px;
+margin-top: 80px;
 `
 
 const Wrapper = styled.div`
@@ -124,42 +125,51 @@ justify-content: center;
 margin-right: 5px;
 `
 const Post = (props) => {
+    console.log(props.item);
+
+    const {
+        amountOfBlood, hospitalName, location, patientDisease,
+        phoneNumber, statusTime,
+        requiredBloodGroup, postedUser
+    } = props.item;
+
     return (
         <Container>
             <Wrapper>
-                <UserName> {props.item.name}</UserName>
+                <UserName> {postedUser.name}</UserName>
                 <ReqHeader>
                     REQUEST FOR
                 </ReqHeader>
                 <PostContainer>
                     <BloodGroup>
                         <Group>
-                            {props.item.bloodGroup}
+                            {requiredBloodGroup}
                         </Group>
                     </BloodGroup>
                     <InfoContainer>
                         <PostText>Published On
-                            <PostOn>{props.item.updatedAt} </PostOn>
+                            <PostOn>{statusTime
+                            } </PostOn>
                         </PostText>
                         <Info>
                             <Icon> <FaHospital /></Icon>
-                            <Address> {props.item.address}</Address>
+                            <Address> {location}</Address>
                         </Info>
                         <Info>
                             <Icon> <MdBloodtype /></Icon>
-                            <Address> {props.item.amountOfBlood}</Address>
+                            <Address> {hospitalName}</Address>
                         </Info>
                         <Info>
                             <Icon> <MdPhoneInTalk /></Icon>
-                            <Address>+88 {props.item.phone}</Address>
+                            <Address>+88 {phoneNumber}</Address>
                         </Info>
                         <Info>
                             <Icon> <FaCalendar /></Icon>
-                            <Address> {props.item.date}</Address>
+                            <Address> {amountOfBlood}</Address>
                         </Info>
                         <Info>
                             <Icon> <FaDisease /></Icon>
-                            <Address> {props.item.disease}</Address>
+                            <Address> {patientDisease}</Address>
                         </Info>
                         <InfoBottom>
                             <Comment>
