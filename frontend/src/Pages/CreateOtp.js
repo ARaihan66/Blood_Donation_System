@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
 display: flex;
@@ -51,74 +51,57 @@ margin: 5px;
 padding: 15px;
 border-radius: 5px;
 border: none;
+outline: none;
 width:400px;
+outline: none;
 `
 const Button = styled.button`
 margin: 10px;
 padding: 15px 30px;
 font-weight: 600;
 border: none;
+outline: none;
 border-radius: 5px;
 color: white;
 background-color: blue;
 border-radius: 8px;
+cursor: pointer;
 &:hover{
     background-color: white;
     color: blue;
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
 }
-`
-const FooterLink = styled.div`
-font-weight: 600;
-margin: 5px;
-color: blue;
-cursor: pointer;
-&:hover{
-    text-decoration: underline;
-}
-`
-const FooterSection = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
 `
 
 
-const Login = () => {
-    const navigate = useNavigate()
-    const [data, setData] = useState({ email: '', password: '' });
-    const { email, password } = data;
+const CreateOtp = () => {
+    const navigate = useNavigate();
+    const [data, setData] = useState({ email: '' });
+    const { email } = data;
+
     const handleOnClick = (event) => {
-        if (event.target.name === "email") {
-            setData({ email: event.target.value, password })
-        }
-
-        if (event.target.name === "password") {
-            setData({ email, password: event.target.value })
-        }
+        setData({ ...data, [event.target.name]: event.target.value })
     }
 
     const handleClick = async (event) => {
         event.preventDefault();
-        const res = await fetch("/register", {
+        const res = await fetch("http://localhost:5000/api/user/create/otp", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email: email,
-                password: password
+                email: email
             })
         })
 
         const data = await res.json();
 
         if (!data) {
-            window.alert("Registration Failed")
+            window.alert("OTP Sending Failed");
         } else {
-            window.alert("Registration Successful")
-            navigate("/homepage");
+            window.alert("OTP Successfully Send")
+            navigate("/signin");
         }
     }
 
@@ -129,20 +112,15 @@ const Login = () => {
             </LeftWrapper>
             <RightWrapper>
                 <Heading>
-                    <Title>Log In Form</Title>
+                    <Title>SignUp Form</Title>
                 </Heading>
-                <Form>
-                    <Input type="email" placeholder="Write Email Address" value={email} name="email" onChange={handleOnClick} />
-                    <Input type="text" placeholder="Write Password" value={password} name="password" onChange={handleOnClick} />
-                    <Button type='submit' onClick={handleClick}>Log In</Button>
+                <Form >
+                    <Input type="email" placeholder="Enter Email" value={email} name="email" onChange={handleOnClick} />
+                    <Button type='submit' onClick={handleClick}>Next step</Button>
                 </Form>
-                <FooterSection>
-                    <text>Don't have an account?</text>
-                    <FooterLink><Link to='/signin'>SIGNUP HERE?</Link></FooterLink>
-                </FooterSection>
             </RightWrapper>
         </Container>
     )
 }
 
-export default Login
+export default CreateOtp;

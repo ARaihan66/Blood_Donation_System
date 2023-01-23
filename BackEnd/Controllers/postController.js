@@ -3,7 +3,7 @@ const User = require('../Models/UserModel.js');
 
 // Create post
 exports.createPost = async (req, res) => {
-    const { location, hospitalName, amountOfBlood, phoneNumber, requiredBloodGroup, patientDisease } = req.body;
+    const { location, hospitalName, amountOfBlood, phoneNumber, whatsappNumber, requiredBloodGroup, patientDisease, date } = req.body;
     const user = await User.findById(req.user.id);
 
     const userPost = await Post.create({
@@ -11,8 +11,10 @@ exports.createPost = async (req, res) => {
         hospitalName: hospitalName,
         amountOfBlood: amountOfBlood,
         phoneNumber: phoneNumber,
+        whatsappNumber: whatsappNumber,
         requiredBloodGroup: requiredBloodGroup,
         patientDisease: patientDisease,
+        date: date,
         postedUser: {
             userId: user._id,
             name: user.name

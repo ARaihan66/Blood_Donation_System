@@ -134,7 +134,7 @@ const Navbar = () => {
                 </Center>
                 <Right>
                     <MenuItem><TopLink to='/'>HOME</TopLink></MenuItem>
-                    <MenuItem><TopLink to='/posts'>FEED</TopLink></MenuItem>
+                    <MenuItem><TopLink to='/feeds'>FEED</TopLink></MenuItem>
                     <MenuItem><TopLink to='/request'>REQUEST</TopLink></MenuItem>
                     <MenuItem><TopLink to='/profile'>PROFILE</TopLink></MenuItem>
                     <MenuItem><ContactLink href='#contact'>CONTACT US</ContactLink></MenuItem>

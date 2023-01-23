@@ -13,6 +13,12 @@ const Item = styled.div`
 
 `
 
+const DataLoading = styled.h3`
+position: absolute;
+top:30px;
+left: 0;
+`
+
 const Posts = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState(null);
@@ -32,7 +38,7 @@ const Posts = () => {
     }, [])
     return (
         <Container>
-            {isLoading && <h1>Data is loading</h1>}
+            {isLoading && <DataLoading>Data is loading</DataLoading>}
 
             {
 
@@ -40,6 +46,7 @@ const Posts = () => {
                     return < Post item={res} />;
                 })
             }
+            {error && <DataLoading>Error in data fetching</DataLoading>}
         </Container >
     )
 }

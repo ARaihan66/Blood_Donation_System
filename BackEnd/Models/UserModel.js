@@ -8,13 +8,22 @@ const userSchema = Schema({
     otp: {
         type: Number
     },
-    name: {
+    firstName: {
         type: String,
         required: [true, "Name is required"],
         minlength: [2, "Minimum length of name is 4 charecters"],
         maxlength: [25, "Maximum lenght of name is 25 charecters"],
         trim: true
     },
+
+    lastName: {
+        type: String,
+        required: [true, "Name is required"],
+        minlength: [2, "Minimum length of name is 4 charecters"],
+        maxlength: [25, "Maximum lenght of name is 25 charecters"],
+        trim: true
+    },
+
 
     blood_group: {
         type: String,
@@ -33,6 +42,15 @@ const userSchema = Schema({
         required: [true, "Password is required"],
         select: false
     },
+
+    confirmPassword: {
+        type: String,
+        minlength: [4, "Minimum length of password is 4 charecters"],
+        maxlenght: [15, "Maximum length of password is 15 charecters"],
+        required: [true, "Password is required"],
+        select: false
+    },
+
 
     avater: {
         public_id: {

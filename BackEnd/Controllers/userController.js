@@ -33,7 +33,7 @@ exports.createOtp = async (req, res, next) => {
     await transporter.sendMail({
         from: process.env.EMAIL, // sender address
         to: email, // list of receivers
-        subject: "OTP code from Blood Cell application", // Subject line
+        subject: "OTP code from Blood Donor application", // Subject line
         text: OTP
     }, (error, data) => {
         if (error) {
@@ -75,7 +75,7 @@ exports.createOtp = async (req, res, next) => {
 
 //User registration using otp
 exports.createAccount = async (req, res) => {
-    const { otp, name, password, blood_group } = req.body;
+    const { otp, firstName, lastName, password, confirmPassword, blood_group, phone_no } = req.body;
 
     const otpUser = await Otp.findOne({ otp: otp });
 
@@ -83,10 +83,13 @@ exports.createAccount = async (req, res) => {
     if (otp == otpUser.otp) {
         const user = await User.create({
             otp: otp,
-            name: name,
+            firstName: firstName,
+            lastName: lastName,
             email: otpUser.email,
             password: password,
+            confirmPassword: confirmPassword,
             blood_group: blood_group,
+
             avater: {
                 public_id: 'www.myPicture.com',
                 url: 'www.myUrl.com'

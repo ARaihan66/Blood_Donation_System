@@ -18,6 +18,10 @@ const postSchema = Schema({
         type: String,
         required: true
     },
+    whatsappNumber: {
+        type: String,
+        required: true
+    },
     requiredBloodGroup: {
         type: String,
         required: true
@@ -31,6 +35,11 @@ const postSchema = Schema({
     statusTime: {
         type: Date,
         default: Date.now()
+    },
+
+    donationDate: {
+        type: String,
+        required: true
     },
 
     postedUser: {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import BloodDrop from '../Picture/BloodDrop/BloodDrop.gif'
+import axios from 'axios'
 
 
 const Container = styled.div`
@@ -102,60 +103,85 @@ background-color: white;
 `
 
 const RequestForm = () => {
-    const [requestData, setRequestData] = useState({
-        location: '', hospitalName: '', amountOfBlood: '', phoneNumber: '', requiredBloodGroup: '', patientDisease: ''
+    const [data, setData] = useState(null)
+    const [formData, setFormData] = useState({
+        location: '', hospitalName: '', amountOfBlood: '', phoneNumber: '', whatsappNumber: '', requiredBloodGroup: '', patientDisease: '', date: ''
     })
+    const { location, hospitalName, amountOfBlood, phoneNumber, whatsappNumber, requiredBloodGroup, patientDisease, date } = formData;
+
+
+    const handleChange = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
+        });
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        axios.post('http://localhost:5000/api/post/create', formData)
+            .then(response => {
+                console.log(response);
+                setData(response.data);
+                window.alert(data);
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+                window.alert(data);
+            });
+    }
     return (
         <Container>
             <Heading>CREATE A REQUEST FOR BLOOD</Heading>
             <ImgContainer><Img src={BloodDrop} /></ImgContainer>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Top>
                     <Left><InputText>Patient Disease<sup>*</sup></InputText>
-                        <Input type='text' placeholder="Enter Disease Name" required /></Left>
+                        <Input type='text' placeholder="Enter Disease Name" value={patientDisease} name="patientDisease" required onChange={handleChange} /></Left>
                     <Right>
-                        <InputText>Amount Of Blood<sup>*</sup></InputText>
-                        <Input type='number' placeholder="Amount Of Blood" required min="1" />
+                        <InputText>Amount Of Blood (Bags)<sup>*</sup></InputText>
+                        <Input type='number' placeholder="Number Of Bags Blood" min="1" value={amountOfBlood} name="amountOfBlood" required onChange={handleChange} />
                     </Right>
                 </Top>
                 <Top>
                     <Left>
                         <InputText>Blood Group<sup>*</sup></InputText>
-                        <Select>
+                        <Select name='requiredBloodGroup'>
                             <Option disabled selected type="0.5">
                                 Select Blood Group
                             </Option>
-                            <Option>A+</Option>
-                            <Option>A-</Option>
-                            <Option>B+</Option>
-                            <Option>B-</Option>
-                            <Option>AB+</Option>
-                            <Option>AB-</Option>
-                            <Option>O+</Option>
-                            <Option>O-</Option>
+                            <Option value="A+">A+</Option>
+                            <Option value="A-">A-</Option>
+                            <Option value="B+">B+</Option>
+                            <Option value="B-">B-</Option>
+                            <Option value="AB+">AB+</Option>
+                            <Option value="AB-">AB-</Option>
+                            <Option value="O+">O+</Option>
+                            <Option value="O-">O-</Option>
                         </Select>
                     </Left>
                     <Right>
                         <InputText>Donation Date<sup>*</sup></InputText>
-                        <Input type='date' />
+                        <Input type='date' value={date} name='date' required onChange={handleChange} />
                     </Right>
                 </Top>
                 <Top>
                     <Left><InputText>Hospital Name<sup>*</sup></InputText>
-                        <Input type='text' placeholder="Enter Hospital Name" required /></Left>
+                        <Input type='text' placeholder="Enter Hospital Name" value={hospitalName} name='hospitalName' required onChange={handleChange} /></Left>
                     <Right>
                         <InputText>Address<sup>*</sup></InputText>
-                        <Input type='text' placeholder="Enter Address" required />
+                        <Input type='text' placeholder="Enter Address" value={location} name='location' required onChange={handleChange} />
                     </Right>
                 </Top>
 
                 <Top>
                     <Left><InputText>Phone Number</InputText>
-                        <Input type='tel' placeholder="017xx xxxxxx" />
+                        <Input type='tel' placeholder="017xx xxxxxx" value={phoneNumber} name='phoneNumber' onChange={handleChange} />
                     </Left>
                     <Right>
                         <InputText>Whatsapp Number</InputText>
-                        <Input type='tel' placeholder="017xx xxxxxx" />
+                        <Input type='tel' placeholder="017xx xxxxxx" value={whatsappNumber} name='whatsappNumber' onChange={handleChange} />
                     </Right>
                 </Top>
                 <SubmitContainer>
