@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Container = styled.div`
 display: flex;
@@ -87,39 +88,44 @@ justify-content: center;
 
 const Login = () => {
     const navigate = useNavigate()
-    const [data, setData] = useState({ email: '', password: '' });
-    const { email, password } = data;
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const { email, password } = formData;
     const handleOnClick = (event) => {
-        if (event.target.name === "email") {
-            setData({ email: event.target.value, password })
-        }
-
-        if (event.target.name === "password") {
-            setData({ email, password: event.target.value })
-        }
+        setFormData({ ...formData, [event.target.name]: [event.target.value] })
     }
 
     const handleClick = async (event) => {
         event.preventDefault();
-        const res = await fetch("/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
+        //const res = await fetch("http://localhost:5000/api/user/login", {
+        //    method: "POST",
+        //    headers: {
+        //        "Content-Type": "application/json"
+        //    },
+        //    body: JSON.stringify({
+        //        email: email,
+        //        password: password
+        //    })
+        //})
+
+        //const data = await res.json();
+
+        //if (!data) {
+        //    navigate("/login");
+        //} else {
+        //    navigate("/");
+        //}
+
+        axios.post("http://localhost:5000/api/user/login", formData)
+            .then(response => {
+                console.log(response);
+                setFormData(response.data);
+                console.log(formData);
+                navigate("/");
             })
-        })
-
-        const data = await res.json();
-
-        if (!data) {
-            window.alert("Registration Failed")
-        } else {
-            window.alert("Registration Successful")
-            navigate("/homepage");
-        }
+            .catch(error => {
+                console.log(error);
+                navigate("/login");
+            });
     }
 
     return (

@@ -11,10 +11,10 @@ const otpSchema = new Schema({
     otp: {
         type: Number
     },
-    expiredAt: {
-        type: Date,
-        expires: 300
-    }
+    //expiredAt: {
+    //    type: Date,
+    //    expires: 300
+    //}
 
 }, { timestamps: true })
 

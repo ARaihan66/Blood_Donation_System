@@ -107,44 +107,46 @@ const Registration = () => {
         setFormData({ ...formData, [event.target.name]: event.target.value })
     }
 
-    const handleClick = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const res = await fetch("http://localhost:5000/api/user/create/account", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                otp: otp,
-                firstname: firstName,
-                lastname: lastName,
-                phone_no: phone_no,
-                password: password,
-                confirmPassword: confirmPassword,
-                blood_group: blood_group
-            })
-        })
-
-        console.log(otp, firstName, lastName, password, confirmPassword, blood_group, phone_no);
-
-        const data = await res.json();
-
-        if (!data) {
-            window.alert("Registration Failed")
-        } else {
-            window.alert("Registration Successful")
-            navigate("/login");
-        }
-
-        //axios.post("http://localhost:5000/api/user/create/account", formData)
-        //    .then(response => {
-        //        console.log(response);
-        //        setFormData(response.data);
-        //        console.log(formData);
+        //const res = await fetch("http://localhost:5000/api/user/create/account", {
+        //    method: "POST",
+        //    headers: {
+        //        "Content-Type": "application/json"
+        //    },
+        //    body: JSON.stringify({
+        //        otp: otp,
+        //        firstname: firstName,
+        //        lastname: lastName,
+        //        phone_no: phone_no,
+        //        password: password,
+        //        confirmPassword: confirmPassword,
+        //        blood_group: blood_group
         //    })
-        //    .catch(error => {
-        //        console.log(error);
-        //    });
+        //})
+
+        //console.log(otp, firstName, lastName, password, confirmPassword, blood_group, phone_no);
+
+        //const data = await res.json();
+
+        //if (!data) {
+        //    window.alert("Registration Failed")
+        //} else {
+        //    window.alert("Registration Successful")
+        //    navigate("/login");
+        //}
+
+        axios.post("http://localhost:5000/api/user/create/account", formData)
+            .then(response => {
+                console.log(response);
+                setFormData(response.data);
+                console.log(formData);
+                navigate("/login");
+            })
+            .catch(error => {
+                console.log(error);
+                navigate("/signin");
+            });
 
     }
 
@@ -157,7 +159,7 @@ const Registration = () => {
                 <Heading>
                     <Title>SignUp Form</Title>
                 </Heading>
-                <Form onSubmit={handleClick}>
+                <Form onSubmit={handleSubmit}>
                     <Input type="text" placeholder="Enter OTP" value={otp} name="otp" onChange={handleOnChange} />
                     <Input type="text" placeholder="Enter First Name" value={firstName} name="firstName" onChange={handleOnChange} />
                     <Input type="text" placeholder="Enter Last Name" value={lastName} name="lastName" onChange={handleOnChange} />
