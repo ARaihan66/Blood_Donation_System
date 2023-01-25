@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Container = styled.div`
@@ -71,51 +71,28 @@ border-radius: 8px;
     color: blue;
 }
 `
-const NavigationLink = styled(NavLink)`
-font-weight: 600;
-margin: 5px;
-text-decoration: none;
-color: blue;
-cursor: pointer;
-border: none;
-outline: none;
-&:hover{
-    text-decoration: underline;
-}
-`
-const Text = styled.span`
-color: black;
-`
-
-const FooterSection = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-`
 
 
-const Login = () => {
+
+const ResetPassword = () => {
     const navigate = useNavigate()
-    const [formData, setFormData] = useState({ email: '', password: '' });
-    const { email, password } = formData;
+    const [formData, setFormData] = useState({ otp: '', password: '', confirmPassword: '' });
+    const { otp, password, confirmPassword } = formData;
     const handleOnClick = (event) => {
-        setFormData({ ...formData, [event.target.name]: [event.target.value] })
+        setFormData({ formData, [event.target.name]: [event.target.value] })
     }
 
     const handleClick = async (event) => {
         event.preventDefault();
 
-        axios.post("http://localhost:5000/api/user/login", formData)
+        await axios.put("http://localhost:5000/api/user/forget/password", formData)
             .then(response => {
-                console.log(response);
-                setFormData(response.data);
-                console.log(formData);
-                navigate("/");
+                navigate("/login");
+                window.alert("Successfully Reset Password")
             })
             .catch(error => {
-                console.log(error);
-                navigate("/login");
+                navigate("/reset_password");
+                window.alert("Password Reset Failed")
             });
     }
 
@@ -126,21 +103,17 @@ const Login = () => {
             </LeftWrapper>
             <RightWrapper>
                 <Heading>
-                    <Title>Log In Form</Title>
+                    <Title>Reset Password</Title>
                 </Heading>
                 <Form>
-                    <Input type="email" placeholder="Write Email Address" value={email} name="email" onChange={handleOnClick} />
-                    <Input type="text" placeholder="Write Password" value={password} name="password" onChange={handleOnClick} />
-                    <NavigationLink to="/forget_password">Forget Password</NavigationLink>
-                    <Button type='submit' onClick={handleClick}>Log In</Button>
+                    <Input type="email" placeholder="Enter OTP" value={otp} name="otp" onChange={handleOnClick} />
+                    <Input type="email" placeholder="Enter Password" value={password} name="password" onChange={handleOnClick} />
+                    <Input type="email" placeholder="Enter Confirm Password" value={confirmPassword} name="confirmPassword" onChange={handleOnClick} />
+                    <Button type='submit' onClick={handleClick}>Reset Password</Button>
                 </Form>
-                <FooterSection>
-                    <Text>Don't have an account?</Text>
-                    <NavigationLink to='/signin'>SIGNUP HERE?</NavigationLink>
-                </FooterSection>
             </RightWrapper>
         </Container>
     )
 }
 
-export default Login
+export default ResetPassword

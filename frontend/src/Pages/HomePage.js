@@ -2,10 +2,9 @@ import styled from "styled-components"
 import BackgroundVideo from '../Video/BackgroundVideo.mp4'
 import BloodChart from '../Picture/BloodChart/BloodChart.jpeg'
 import BloodDrop from '../Picture/BloodDrop/BloodDrop.gif'
+import { NavLink } from "react-router-dom"
 
 const Container = styled.div`
-/*width: 100%;*/
-/*height: 100vh;*/
 position: relative;
 box-sizing: border-box;
 `
@@ -17,8 +16,6 @@ opacity: 0.4;
 `
 const TextContainer = styled.div`
 position: absolute;
-/*width: 100%;
-height: 100%;*/
 top:20%;
 left: 35%;
 display: flex;
@@ -49,6 +46,17 @@ cursor: pointer;
     color: rgb(231, 230, 240);
     border: none;
 }
+`
+
+const NavigationLink = styled(NavLink)`
+font-weight: 600;
+margin: 5px;
+text-decoration: none;
+color: white;
+color: blue;
+cursor: pointer;
+border: none;
+outline: none;
 `
 
 const BloodInfoContainer = styled.div`
@@ -100,7 +108,7 @@ const HomePage = () => {
             <TextContainer>
                 <Heading>“BE GRATEFUL AND DONATE BLOOD”</Heading>
                 <Text>EVERY BLOOD DONOR IS A HERO</Text>
-                <Button>GET START</Button>
+                <Button><NavigationLink to="login">GET START</NavigationLink></Button>
             </TextContainer>
 
             <BloodInfoContainer>

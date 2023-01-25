@@ -11,6 +11,8 @@ import RequestPage from './Pages/RequestPage';
 import ScrollToTop from "react-scroll-to-top";
 import Feature from './Features/Feature';
 import CreateOtp from './Pages/CreateOtp';
+import ForgetPassword from './Pages/ForgetPassword';
+import ResetPassword from './Pages/ResetPassword';
 import { Routes, Route } from 'react-router-dom';
 
 const Container = styled.div`
@@ -33,6 +35,8 @@ function App() {
         <Route path="/feeds" element={<PostsPage />} />
         <Route path="/request" element={<RequestPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/forget_password" element={<ForgetPassword />} />
+        <Route path="/reset_password" element={<ResetPassword />} />
       </Routes>
 
       <section id='contact'>

@@ -39,7 +39,7 @@ router.route('/update/password')
     .put(authenticatedUser, updatePassword)
 
 router.route('/forget/password')
-    .get(forgetPassword)
+    .post(forgetPassword)
 
 router.route('/forget/password')
     .put(resetPassword)
