@@ -111,7 +111,7 @@ const Login = () => {
                 console.log(response);
                 setFormData(response.data);
                 console.log(formData);
-                navigate("/");
+                navigate("/feeds");
             })
             .catch(error => {
                 console.log(error);

@@ -101,7 +101,7 @@ const CreateOtp = () => {
             window.alert("OTP Sending Failed");
         } else {
             window.alert("OTP Successfully Send")
-            navigate("/signin");
+            navigate("/signup");
         }
     }
 
@@ -114,7 +114,7 @@ const CreateOtp = () => {
                 <Heading>
                     <Title>SignUp Form</Title>
                 </Heading>
-                <Form >
+                <Form method='POST'>
                     <Input type="email" placeholder="Enter Email" value={email} name="email" onChange={handleOnClick} />
                     <Button type='submit' onClick={handleClick}>Next step</Button>
                 </Form>

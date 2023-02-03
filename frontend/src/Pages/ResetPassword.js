@@ -78,20 +78,22 @@ const ResetPassword = () => {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({ otp: '', password: '', confirmPassword: '' });
     const { otp, password, confirmPassword } = formData;
-    const handleOnClick = (event) => {
-        setFormData({ formData, [event.target.name]: [event.target.value] })
+    const handleOnChange = (event) => {
+        setFormData({ ...formData, [event.target.name]: [event.target.value] })
     }
 
     const handleClick = async (event) => {
         event.preventDefault();
 
-        await axios.put("http://localhost:5000/api/user/forget/password", formData)
+        await axios.put("http://localhost:5000/api/user/reset/password", formData)
             .then(response => {
                 navigate("/login");
                 window.alert("Successfully Reset Password")
             })
             .catch(error => {
                 navigate("/reset_password");
+                console.log(error)
+                console.log(formData);
                 window.alert("Password Reset Failed")
             });
     }
@@ -106,9 +108,9 @@ const ResetPassword = () => {
                     <Title>Reset Password</Title>
                 </Heading>
                 <Form>
-                    <Input type="email" placeholder="Enter OTP" value={otp} name="otp" onChange={handleOnClick} />
-                    <Input type="email" placeholder="Enter Password" value={password} name="password" onChange={handleOnClick} />
-                    <Input type="email" placeholder="Enter Confirm Password" value={confirmPassword} name="confirmPassword" onChange={handleOnClick} />
+                    <Input type="text" placeholder="Enter OTP" value={otp} name="otp" onChange={handleOnChange} />
+                    <Input type="text" placeholder="Enter Password" value={password} name="password" onChange={handleOnChange} />
+                    <Input type="text" placeholder="Enter Confirm Password" value={confirmPassword} name="confirmPassword" onChange={handleOnChange} />
                     <Button type='submit' onClick={handleClick}>Reset Password</Button>
                 </Form>
             </RightWrapper>

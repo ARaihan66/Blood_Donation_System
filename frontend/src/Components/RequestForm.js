@@ -123,19 +123,19 @@ const RequestForm = () => {
             .then(response => {
                 console.log(response);
                 setData(response.data);
-                window.alert(data);
-                console.log(data);
+                window.alert(formData);
+                console.log(response.data);
             })
             .catch(error => {
                 console.log(error);
-                window.alert(data);
+                window.alert(error.message);
             });
     }
     return (
         <Container>
             <Heading>CREATE A REQUEST FOR BLOOD</Heading>
             <ImgContainer><Img src={BloodDrop} /></ImgContainer>
-            <Form onSubmit={handleSubmit}>
+            <Form>
                 <Top>
                     <Left><InputText>Patient Disease<sup>*</sup></InputText>
                         <Input type='text' placeholder="Enter Disease Name" value={patientDisease} name="patientDisease" required onChange={handleChange} /></Left>
@@ -185,7 +185,7 @@ const RequestForm = () => {
                     </Right>
                 </Top>
                 <SubmitContainer>
-                    <SubmitButton type='submit'>SUBMIT</SubmitButton>
+                    <SubmitButton type='submit' onClick={handleSubmit}>SUBMIT</SubmitButton>
                 </SubmitContainer>
             </Form>
         </Container>

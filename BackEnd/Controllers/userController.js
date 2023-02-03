@@ -75,20 +75,35 @@ exports.createOtp = async (req, res, next) => {
 
 //User registration using otp
 exports.createAccount = async (req, res) => {
-    const { otp, firstName, lastName, password, confirmPassword, blood_group, phone_no } = req.body;
+    const { otp,
+        user_name,
+        age,
+        number,
+        password,
+        city,
+        blood_group,
+        requirements } = req.body;
 
     const otpUser = await Otp.findOne({ otp: otp });
 
 
-    if (otp == otpUser.otp) {
+    if (otp === otpUser.otp) {
         const user = await User.create({
+            //otp: otp,
+            //firstName: firstName,
+            //lastName: lastName,
+            //password: password,
+            //confirmPassword: confirmPassword,
+            //blood_group: blood_group,
             otp: otp,
-            firstName: firstName,
-            lastName: lastName,
             email: otpUser.email,
+            user_name: user_name,
+            age: age,
+            number: number,
             password: password,
-            confirmPassword: confirmPassword,
+            city: city,
             blood_group: blood_group,
+            requirements: requirements,
 
             avater: {
                 public_id: 'www.myPicture.com',
@@ -123,7 +138,7 @@ exports.userLogin = async (req, res) => {
         })
     }
 
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email });
     if (!user) {
         return res.status(400).json({
             success: false,
@@ -323,9 +338,11 @@ exports.resetPassword = async (req, res) => {
         })
     }
 
-    const hashPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt(10);
+    //const hashPassword = await bcrypt.hash(password, 10);
+    const hashPassword = await bcrypt.hash(password, salt);
 
-    if (otp == otpUser.otp) {
+    if (otp === otpUser.otp) {
         user = await User.updateOne({ email: otpUser.email }, {
             $set: {
                 password: hashPassword,

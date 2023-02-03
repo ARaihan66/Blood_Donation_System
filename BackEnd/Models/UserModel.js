@@ -6,22 +6,19 @@ const bcrypt = require('bcrypt');
 
 const userSchema = Schema({
     otp: {
-        type: Number
+        type: String,
+        required: true,
     },
-    firstName: {
+    user_name: {
         type: String,
         required: [true, "Name is required"],
         minlength: [2, "Minimum length of name is 4 charecters"],
         maxlength: [25, "Maximum lenght of name is 25 charecters"],
         trim: true
     },
-
-    lastName: {
+    age: {
         type: String,
-        required: [true, "Name is required"],
-        minlength: [2, "Minimum length of name is 4 charecters"],
-        maxlength: [25, "Maximum lenght of name is 25 charecters"],
-        trim: true
+        required: [true, "Age is required"],
     },
 
 
@@ -42,12 +39,21 @@ const userSchema = Schema({
         required: [true, "Password is required"],
         select: false
     },
-
-    confirmPassword: {
+    number: {
         type: String,
-        minlength: [4, "Minimum length of password is 4 charecters"],
-        maxlenght: [15, "Maximum length of password is 15 charecters"],
-        required: [true, "Password is required"],
+        required: [true, "Phone Number is required"],
+        select: false
+    },
+
+    city: {
+        type: String,
+        required: [true, "City is required"],
+        select: false
+    },
+
+    requirements: {
+        type: String,
+        required: [true, "Requirements is required"],
         select: false
     },
 

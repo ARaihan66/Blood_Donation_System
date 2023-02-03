@@ -9,14 +9,15 @@ const otpSchema = new Schema({
         unique: true
     },
     otp: {
-        type: Number
+        type: String,
+        required: true
     },
-    //expiredAt: {
-    //    type: Date,
-    //    expires: 300
-    //}
+    expiredAt: {
+        type: Date,
+        expires: 300
+    }
 
 }, { timestamps: true })
 
-const OtpModel = model("Opt", otpSchema);
+const OtpModel = model("Otp", otpSchema);
 module.exports = OtpModel;

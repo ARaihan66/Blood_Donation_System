@@ -85,7 +85,13 @@ const ForgetPassword = () => {
     const handleClick = async (event) => {
         event.preventDefault();
 
-        await axios.post("http://localhost:5000/api/user/forget/password", formData)
+        const token = localStorage.getItem("token")
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        axios.post("http://localhost:5000/api/user/forget/password", formData, config)
             .then(response => {
                 navigate("/reset_password");
                 window.alert("Successfully Send OTP")

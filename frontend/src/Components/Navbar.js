@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { CiSearch } from 'react-icons/ci';
 import BloodDrop from '../Logo/BloodDrop.png';
-import { Link } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
 margin: 0px 0px;
@@ -22,6 +22,7 @@ flex:2;
 display: flex;
 align-items: center;
 justify-content: center;
+cursor: pointer;
 `
 const Logo = styled.h1`
 font-size: 18px;
@@ -68,7 +69,7 @@ cursor: pointer;
 `
 
 const Right = styled.div`
-flex:3;
+flex:4;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -77,7 +78,7 @@ const MenuItem = styled.div`
 margin-left: 15px;
 cursor: pointer;
 `
-const TopLink = styled(Link)`
+const TopLink = styled(NavLink)`
 color: rgb(23, 23, 21);
 font-size: 14px;
 padding: 5px 10px;
@@ -105,12 +106,16 @@ background-color: rgb(23, 23, 21);
 `
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const handleRedirect = () => {
+        navigate("/")
+    }
     return (
         <Container>
             <Wrapper>
                 <Left>
                     <BloodImg src={BloodDrop} />
-                    <Logo>BLOOD DONOR</Logo>
+                    <Logo onClick={handleRedirect}>BLOOD DONOR</Logo>
                 </Left>
                 <Center>
                     <SearchContainer>
@@ -133,11 +138,11 @@ const Navbar = () => {
                     </SearchContainer>
                 </Center>
                 <Right>
-                    <MenuItem><TopLink to='/'>HOME</TopLink></MenuItem>
                     <MenuItem><TopLink to='/feeds'>FEED</TopLink></MenuItem>
                     <MenuItem><TopLink to='/request'>REQUEST</TopLink></MenuItem>
                     <MenuItem><TopLink to='/profile'>PROFILE</TopLink></MenuItem>
                     <MenuItem><ContactLink href='#contact'>CONTACT US</ContactLink></MenuItem>
+                    <MenuItem><TopLink to='/login'>LOGIN</TopLink></MenuItem>
                 </Right>
             </Wrapper>
         </Container>

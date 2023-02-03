@@ -41,7 +41,7 @@ router.route('/update/password')
 router.route('/forget/password')
     .post(forgetPassword)
 
-router.route('/forget/password')
+router.route('/reset/password')
     .put(resetPassword)
 
 router.route('/all/users')

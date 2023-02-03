@@ -2,7 +2,7 @@ import styled from "styled-components"
 import BackgroundVideo from '../Video/BackgroundVideo.mp4'
 import BloodChart from '../Picture/BloodChart/BloodChart.jpeg'
 import BloodDrop from '../Picture/BloodDrop/BloodDrop.gif'
-import { NavLink } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const Container = styled.div`
 position: relative;
@@ -48,26 +48,17 @@ cursor: pointer;
 }
 `
 
-const NavigationLink = styled(NavLink)`
-font-weight: 600;
-margin: 5px;
-text-decoration: none;
-color: white;
-color: blue;
-cursor: pointer;
-border: none;
-outline: none;
-`
 
 const BloodInfoContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-background: rgb(145, 17, 39);
+margin: 10px 110px;
+border-radius: 10px;
+/*height: 50vh;*/
 `
 const BloodDonationInfo = styled.div`
 background: rgb(176, 174, 184);
-margin: 20px 15px;
 border-radius: 10px;
 `
 const BloodHeading = styled.h1`
@@ -98,17 +89,22 @@ width: 3%;
 const BloodListImg = styled.img`
 border-radius: 10px;
 margin: 20px 15px;
+height: 100%;
 `
 
 
 const HomePage = () => {
+    const navigate = useNavigate();
+    const handleRedirect = () => {
+        navigate("/login")
+    }
     return (
         <Container>
             <Video src={BackgroundVideo} muted autoPlay loop />
             <TextContainer>
                 <Heading>“BE GRATEFUL AND DONATE BLOOD”</Heading>
                 <Text>EVERY BLOOD DONOR IS A HERO</Text>
-                <Button><NavigationLink to="login">GET START</NavigationLink></Button>
+                <Button onClick={handleRedirect}>GET START</Button>
             </TextContainer>
 
             <BloodInfoContainer>

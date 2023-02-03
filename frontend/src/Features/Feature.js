@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Feature = () => {
-    const { pathname } = useLocation();
+    //const { pathname } = useLocation();
     useEffect(() => {
         window.scrollTo(0, 0);
     })
