@@ -4,7 +4,8 @@ const { createPost, updatePost, deletePost } = require('../Controllers/postContr
 const router = express.Router();
 
 router.route('/create')
-    .post(authenticatedUser, createPost)
+    //.post(authenticatedUser, createPost)
+    .post(createPost)
 
 router.route('/update')
     .put(authenticatedUser, updatePost)

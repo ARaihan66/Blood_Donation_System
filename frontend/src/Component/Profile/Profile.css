@@ -1,0 +1,51 @@
+.profile-container {
+    padding: 50px;
+    text-align: center;
+}
+
+.profile {
+    background-color: rgb(227, 218, 193);
+    margin: 50px 250px;
+    border-radius: 10px;
+    padding: 20px 10px;
+    text-align: left;
+}
+
+/*.profile div {
+    margin: 10px 0px;
+    text-align: left;
+}
+
+.profile div h4,
+h5 {
+    display: flex;
+
+}*/
+
+.icon-data-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.icon {
+    height: 30px;
+    width: 30px;
+    margin: 15px 10px;
+}
+
+.image-container {
+    background-color: rgb(247, 77, 47);
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.image-container img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}

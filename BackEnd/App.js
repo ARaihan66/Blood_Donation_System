@@ -6,7 +6,8 @@ const cors = require('cors');
 const errorHandler = require('./ErrorHandler/errorHandler.js')
 
 
-app.use(cors());
+//app.use(cors());
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 

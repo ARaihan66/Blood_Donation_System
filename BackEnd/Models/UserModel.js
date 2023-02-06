@@ -29,7 +29,7 @@ const userSchema = Schema({
 
     email: {
         type: String,
-        default: ''
+        required: [true, "Email is required"]
     },
 
     password: {
@@ -37,7 +37,7 @@ const userSchema = Schema({
         minlength: [4, "Minimum length of password is 4 charecters"],
         maxlenght: [15, "Maximum length of password is 15 charecters"],
         required: [true, "Password is required"],
-        select: false
+        //select: false
     },
     number: {
         type: String,
@@ -94,15 +94,16 @@ userSchema.pre("save", async function (next) {
 
 
 // JWT token
-userSchema.methods.getJwtToken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-        expiresIn: process.env.JWT_EXPRISE
-    })
+userSchema.methods.getJwtToken = async function () {
+    return await jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY)
 }
 
 // Compare password
 userSchema.methods.comparePassword = async function (givenPassword) {
-    return await bcrypt.compare(givenPassword, this.password);
+    return await bcrypt.compare(givenPassword, this.password).then(res => {
+        console.log(res) // return true
+    })
+        .catch(err => console.error(err.message));
 }
 
 const userModel = model("User", userSchema);

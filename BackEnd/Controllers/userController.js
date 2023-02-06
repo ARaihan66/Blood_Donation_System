@@ -62,13 +62,12 @@ exports.createOtp = async (req, res, next) => {
         }, { new: true })
     }
 
-    //res.redirect('http://localhost:5000/api/user/create/account');
-
     res.status(200).json({
         success: true,
         OTP: OTP
     })
 
+    //res.status(200).cookie('token', Shakil, { domain: 'localhost' });
 
 }
 
@@ -89,12 +88,7 @@ exports.createAccount = async (req, res) => {
 
     if (otp === otpUser.otp) {
         const user = await User.create({
-            //otp: otp,
-            //firstName: firstName,
-            //lastName: lastName,
-            //password: password,
-            //confirmPassword: confirmPassword,
-            //blood_group: blood_group,
+
             otp: otp,
             email: otpUser.email,
             user_name: user_name,
@@ -146,7 +140,10 @@ exports.userLogin = async (req, res) => {
         })
     }
 
-    const isPaswordMatched = await user.comparePassword(password);
+    const isPaswordMatched = user.comparePassword(password);
+
+    //const isPaswordMatched = await bcrypt.compare(password, user.password).then(res => {
+    //    console.log(res) // return true
 
     if (!isPaswordMatched) {
         return res.status(400).json({
@@ -155,7 +152,24 @@ exports.userLogin = async (req, res) => {
         })
     }
 
-    sendToken(user, 201, res);
+    const token = await user.getJwtToken();
+
+    //sendToken(user, 201, res);
+
+    //res.status(200).json({
+    //    success: true,
+    //    User: user,
+    //    Token: token
+    //})
+
+    res.status(200).cookie('token', "shakil", {
+        expires: new Date(Date.now() + 24 * 7 * 30 * 356 * 12 * 1),
+        httpOnly: true
+    }).json({
+        success: true,
+        User: user,
+        Token: token
+    })
 
 }
 
@@ -321,6 +335,7 @@ exports.forgetPassword = async (req, res) => {
         success: true,
         OTP: OTP
     })
+
 }
 
 

@@ -1,20 +1,14 @@
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
-  font-family: 'Nunito Sans', sans-serif;
 }
 
-body {
-  background-color: rgb(89, 66, 70);
-  color: white;
-}
-
-.navlink {
-  color: azure;
-  text-decoration: none;
-}
-
-.active {
-  color: green;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: rgb(227, 171, 16);
 }

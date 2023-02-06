@@ -3,21 +3,38 @@ const jwt = require('jsonwebtoken');
 
 exports.authenticatedUser = async (req, res, next) => {
 
-    const { token } = req.cookies;
-    if (!token) {
+    //const { token } = req.cookies;
+    //if (!token) {
+    //    return res.status(403).json({
+    //        success: false,
+    //        message: "Please login first !!"
+    //    })
+    //}
+
+    //const varification = jwt.verify(token, process.env.JWT_SECRET_KEY)
+
+
+    //req.user = await User.findById(varification.id);
+    //next();
+
+    try {
+        const token = req.localStorage.getItem(token);
+        //var decoded = jwt_decode(token);
+        console.log(token);
+        const varification = jwt.verify(token, process.env.JWT_SECRET_KEY)
+        req.user = await User.findById(varification.id);
+        next();
+
+    } catch (err) {
         return res.status(403).json({
             success: false,
             message: "Please login first !!"
         })
+
     }
-
-    const varification = jwt.verify(token, process.env.JWT_SECRET_KEY)
-
-
-    req.user = await User.findById(varification.id);
-    next();
-
 }
+
+
 
 
 // Admin role
