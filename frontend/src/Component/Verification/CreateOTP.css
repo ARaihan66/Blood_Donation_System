@@ -4,7 +4,7 @@ body {
     color: white;
 }
 
-.loginDiv {
+.OTPDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,18 +14,18 @@ body {
     background-color: rgb(227, 218, 193);
 }
 
-.loginDiv div img {
+.OTPDiv div img {
     height: 50px;
     width: 50px;
 }
 
-.loginDiv h1 {
+.OTPDiv h1 {
     margin: 0px;
     color: rgb(219, 13, 13);
     font-weight: 200;
 }
 
-.loginDiv form {
+.OTPDiv form {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -37,7 +37,7 @@ body {
     border-radius: 20px;
 }
 
-.loginDiv form input {
+.OTPDiv form input {
     height: 50px;
     width: 500px;
     border-radius: 10px;
@@ -47,11 +47,11 @@ body {
     font: 15px;
 }
 
-.loginDiv form input:focus {
+.OTPDiv form input:focus {
     outline: none;
 }
 
-.loginDiv form button {
+.OTPDiv form button {
     background-color: rgb(221, 47, 47);
     color: white;
     border-radius: 30px;
@@ -63,28 +63,27 @@ body {
     margin: 10px 0px;
 }
 
-.loginDiv form button:hover {
+.OTPDiv form button:hover {
     background-color: white;
     color: rgb(221, 47, 47);
     border: 1px solid rgb(221, 47, 47);
 }
 
-.loginDiv form p {
+.OTPDiv form p {
     color: red;
     margin: 0;
 }
 
-.loginDiv form p span {
+.OTPDiv form p span {
     text-decoration: none;
     background-color: white;
     border: 1px solid rgb(221, 47, 47);
     color: red;
     padding: 5px;
     margin: 0px 10px;
-    cursor: pointer;
 }
 
-.loginDiv form p span:hover {
+.OTPDiv form p span:hover {
     background-color: rgb(221, 47, 47);
     color: white;
 }

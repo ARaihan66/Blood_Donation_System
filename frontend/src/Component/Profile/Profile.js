@@ -14,25 +14,37 @@ const Profile = () => {
                 </div>
                 <div className='icon-data-container'>
                     <div><img src={User} alt="blood-group" className='icon' /></div>
-                    <p>Maisha Tabassum</p>
+                    <h5>Maisha Tabassum</h5>
                 </div>
                 <div className='icon-data-container'>
                     <div><img src={BloodGroup} alt="blood-group" className='icon' /></div>
-                    <p>Maisha Tabassum</p>
+                    <h5>B+</h5>
                 </div>
                 <div className='icon-data-container'>
                     <div><img src={Location} alt="blood-group" className='icon' /></div>
-                    <p>Maisha Tabassum</p>
+                    <h5>Mohakhali</h5>
                 </div>
                 <div className='icon-data-container'>
                     <div><img src={PhoneCall} alt="blood-group" className='icon' /></div>
-                    <p>Maisha Tabassum</p>
+                    <h5>01767013859</h5>
                 </div>
             </div>
 
-            <div className='post-container'>
 
+            <div className='feed-container'>
+                <div className='feed-image-container'><img src="https://cdn.pixabay.com/photo/2017/11/23/07/47/baby-2972221__340.jpg" alt='' />
+                    <h3 style={{ color: "white" }}>SHAKIL</h3>
+                </div>
+                <div className='request'>REQUEST FOR</div>
+                {/*<div className=''>*/}
+                <h5>BLOOD GROUP :</h5>
+                <h5>AMOUNT OF BLOOD :</h5>
+                <h5>DONATION DATE :</h5>
+                <h5>HOSPITAL :</h5>
+                <h5>ADDRESS :</h5>
+                <h5>PHONE NUMBER :</h5>
             </div>
+
         </div>
     )
 }

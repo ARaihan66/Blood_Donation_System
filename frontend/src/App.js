@@ -6,7 +6,8 @@ import Feed from './Component/Feed/Feed';
 import CreateRequest from "./Component/CreateRequest/CreateRequest";
 import Login from "./Component/Login/Login";
 import Signup from "./Component/Signup/Signup";
-import Profile from "./Component/Profile/Profile"
+import Profile from "./Component/Profile/Profile";
+import CreateOtp from './Component/Verification/CreateOTP';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/request' element={<CreateRequest />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={< Profile />} />
+        <Route path='/create_otp' element={<CreateOtp />} />
       </Routes>
     </div>
   );
