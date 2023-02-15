@@ -4,28 +4,40 @@ const User = require('../Models/UserModel.js');
 // Create post
 exports.createPost = async (req, res) => {
     const { location, hospitalName, amountOfBlood, phoneNumber, whatsappNumber, requiredBloodGroup, patientDisease, date } = req.body;
-    const user = await User.findById(req.user.id);
 
-    const userPost = await Post.create({
-        location: location,
-        hospitalName: hospitalName,
-        amountOfBlood: amountOfBlood,
-        phoneNumber: phoneNumber,
-        whatsappNumber: whatsappNumber,
-        requiredBloodGroup: requiredBloodGroup,
-        patientDisease: patientDisease,
-        date: date,
-        postedUser: {
-            userId: user._id,
-            name: user.name
-        }
-    })
+    //const data = req.body.data;
 
-    res.status(200).json({
-        seccess: true,
-        message: "Post has created successfully",
-        post: userPost
-    });
+    const user = await User.findById(req.user._id);
+
+    console.log("user", user);
+
+    if (user) {
+        const userPost = await Post.create({
+            location: location,
+            hospitalName: hospitalName,
+            amountOfBlood: amountOfBlood,
+            phoneNumber: phoneNumber,
+            whatsappNumber: whatsappNumber,
+            requiredBloodGroup: requiredBloodGroup,
+            patientDisease: patientDisease,
+            date: date,
+            postedUser: {
+                userId: user._id,
+                name: user.user_name
+            }
+        })
+        res.status(200).json({
+            seccess: true,
+            message: "Post has created successfully",
+            post: userPost
+            //data: data,
+        });
+    } else {
+        res.status(400).json({
+            seccess: false,
+            message: "Please Login first",
+        });
+    }
 }
 
 // Update post

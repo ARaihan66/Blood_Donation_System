@@ -42,7 +42,7 @@ const userSchema = Schema({
     number: {
         type: String,
         required: [true, "Phone Number is required"],
-        select: false
+        //select: false
     },
 
     city: {

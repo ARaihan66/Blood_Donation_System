@@ -14,7 +14,10 @@ exports.createOtp = async (req, res, next) => {
 
     let user = await User.findOne({ email });
     if (user) {
-        return res.status(400).send("User was already registired with this email")
+        return res.status(400).json({
+            success: false,
+            message: "User was already registired with this email"
+        })
     }
 
     const OTP = `${Math.floor(1000 + Math.random() * 9000)}`
@@ -64,10 +67,11 @@ exports.createOtp = async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        message: "OTP Sends Successfully",
         OTP: OTP
     })
 
-    //res.status(200).cookie('token', Shakil, { domain: 'localhost' });
+
 
 }
 
@@ -88,7 +92,6 @@ exports.createAccount = async (req, res) => {
 
     if (otp === otpUser.otp) {
         const user = await User.create({
-
             otp: otp,
             email: otpUser.email,
             user_name: user_name,
@@ -106,16 +109,16 @@ exports.createAccount = async (req, res) => {
         })
 
         return res.status(200).json({
-            seccess: true,
+            success: true,
             message: "Registration Successful!!!"
         })
     }
-    else {
-        return res.status(400).json({
-            seccess: false,
-            message: "OTP not match!!!"
-        })
-    }
+
+    res.status(400).json({
+        success: false,
+        message: "OTP not match!!!"
+    })
+
 
 }
 
@@ -140,36 +143,40 @@ exports.userLogin = async (req, res) => {
         })
     }
 
-    const isPaswordMatched = user.comparePassword(password);
+    //const isPaswordMatched = user.comparePassword(password);
 
-    //const isPaswordMatched = await bcrypt.compare(password, user.password).then(res => {
-    //    console.log(res) // return true
+    const isPaswordMatched = await bcrypt.compare(password, user.password).then(response => {
+        console.log(response) // return true
+        if (response === false) {
+            return res.status(400).json({
+                success: false,
+                message: "Password is incorrect!!"
+            })
+        }
+    })
+    console.log(isPaswordMatched)
 
-    if (!isPaswordMatched) {
-        return res.status(400).json({
-            success: false,
-            message: "Password is incorrect!!"
-        })
-    }
 
     const token = await user.getJwtToken();
 
     //sendToken(user, 201, res);
 
-    //res.status(200).json({
+    res.status(200).json({
+        success: true,
+        message: "Login Successfull",
+        User: user,
+        token: token
+
+    })
+
+    //res.status(200).cookie('token', "shakil", {
+    //    expires: new Date(Date.now() + 24 * 7 * 30 * 356 * 12 * 1),
+    //    httpOnly: true
+    //}).json({
     //    success: true,
     //    User: user,
     //    Token: token
     //})
-
-    res.status(200).cookie('token', "shakil", {
-        expires: new Date(Date.now() + 24 * 7 * 30 * 356 * 12 * 1),
-        httpOnly: true
-    }).json({
-        success: true,
-        User: user,
-        Token: token
-    })
 
 }
 
@@ -190,11 +197,20 @@ exports.userLogout = async (req, res) => {
 // User profile details
 exports.userProfile = async (req, res) => {
 
-    const user = await User.findById(req.user.id);
-    res.status(200).json({
-        success: true,
-        User: user
+    const user = await User.findById(req.user._id);
+    if (user) {
+        return res.status(200).json({
+            success: true,
+            User: user,
+        })
+    }
+
+
+    res.status(400).json({
+        success: false,
+        message: "Please Login First!!!"
     })
+
 
 }
 

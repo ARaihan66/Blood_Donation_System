@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import BloodDrop from '../../Assets/Home/BloodDrop/BloodDrop.gif';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -113,9 +114,10 @@ background-color: white;
 `
 
 const RequestForm = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState(null)
   const [formData, setFormData] = useState({
-    location: '', hospitalName: '', amountOfBlood: '', phoneNumber: '', whatsappNumber: '', requiredBloodGroup: '', patientDisease: '', date: ''
+    location: '', hospitalName: '', amountOfBlood: '', phoneNumber: '', whatsappNumber: '', requiredBloodGroup: '', patientDisease: '', date: new Date()
   })
   const { location, hospitalName, amountOfBlood, phoneNumber, whatsappNumber, requiredBloodGroup, patientDisease, date } = formData;
 
@@ -127,40 +129,22 @@ const RequestForm = () => {
     });
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios.post('http://localhost:5000/api/post/create', formData)
+    const token = localStorage.getItem('token');
+    //axios.post('http://localhost:5000/api/post/create', formData)
+    await axios.post(`http://localhost:5000/api/post/create/${token}`, formData)
       .then(response => {
-        console.log(response);
-        setData(response.data);
-        window.alert(formData);
+        window.alert(response.data.message);
+        navigate('/feeds')
         console.log(response.data);
       })
       .catch(error => {
-        console.log(error);
-        window.alert(error.message);
+        console.log(error.massage);
+        window.alert("Please Login First");
       });
   }
 
-  //const handleSubmit = async (e) => {
-  //  e.preventDefault();
-  //  const res = await fetch("http://localhost:5000/api/post/create", {
-  //    method: 'POST',
-  //    headers: {
-  //      "Content-Type": "application/json"
-  //    },
-  //    body: JSON.stringify({
-  //      location, hospitalName, amountOfBlood, phoneNumber, whatsappNumber, requiredBloodGroup, patientDisease, date
-  //    })
-  //  })
-  //  const data = res.json();
-  //  console.log(data)
-
-  //  if (res.status === 400 || !data) {
-  //    window.alert("Success")
-  //  } else {
-  //    window.alert("Fail")
-  //  }
 
   return (
     <Container>
@@ -178,10 +162,8 @@ const RequestForm = () => {
         <Top>
           <Left>
             <InputText>Blood Group<sup>*</sup></InputText>
-            <Select name='requiredBloodGroup'>
-              <Option disabled selected type="0.5">
-                Select Blood Group
-              </Option>
+            <Select name='requiredBloodGroup' value={requiredBloodGroup} required onChange={handleChange}>
+              <Option disabled selected>Select Blood Group</Option>
               <Option value="A+">A+</Option>
               <Option value="A-">A-</Option>
               <Option value="B+">B+</Option>
@@ -219,7 +201,7 @@ const RequestForm = () => {
           <SubmitButton type='submit' onClick={handleSubmit}>SUBMIT</SubmitButton>
         </SubmitContainer>
       </Form>
-    </Container>
+    </Container >
   )
 }
 

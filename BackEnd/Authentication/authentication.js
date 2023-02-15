@@ -18,11 +18,12 @@ exports.authenticatedUser = async (req, res, next) => {
     //next();
 
     try {
-        const token = req.localStorage.getItem(token);
+        const token = req.params.token;
         //var decoded = jwt_decode(token);
         console.log(token);
         const varification = jwt.verify(token, process.env.JWT_SECRET_KEY)
         req.user = await User.findById(varification.id);
+        console.log(req.user);
         next();
 
     } catch (err) {

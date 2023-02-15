@@ -24,7 +24,7 @@ const postSchema = Schema({
     },
     requiredBloodGroup: {
         type: String,
-        required: true
+        //required: true
     },
 
     patientDisease: {
@@ -37,8 +37,8 @@ const postSchema = Schema({
         default: Date.now()
     },
 
-    donationDate: {
-        type: String,
+    date: {
+        type: Date,
         required: true
     },
 

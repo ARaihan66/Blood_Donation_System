@@ -29,7 +29,7 @@ router.route('/login')
 router.route('/logout')
     .post(userLogout)
 
-router.route('/profile/me')
+router.route('/profile/me/:token')
     .get(authenticatedUser, userProfile)
 
 router.route('/update/profile')

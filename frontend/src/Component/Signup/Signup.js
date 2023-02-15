@@ -39,44 +39,29 @@ function Signup() {
 
     const HandleSubmit = async (event) => {
         event.preventDefault();
-        //const res = await fetch("http://localhost:5000/api/user/create/account", {
-        //    method: "POST",
-        //    headers: {
-        //        "Content-Type": "application/json"
-        //    },
-        //    body: JSON.stringify({
-        //        otp,
-        //        user_name,
-        //        age,
-        //        number,
-        //        password,
-        //        city,
-        //        blood_group,
-        //        requirements,
-        //    })
-        //})
 
-        //const data = await res.json();
-        //console.log(data)
-        //if (!data) {
-        //    window.alert("OTP Sending Failed");
-        //} else {
-        //    window.alert("OTP Successfully Send")
-        //    navigate("/login");
-        //}
-
-
-        axios.post("http://localhost:5000/api/user/create/account", userDetails)
+        await axios.post("http://localhost:5000/api/user/create/account", userDetails)
             .then(response => {
-                console.log(response);
-                setUserDetails(response.data);
-                console.log(userDetails);
-                navigate("/login");
+                console.log(response.data);
+                //setUserDetails(response.data);
+                console.log(userDetails.success);
+                if (response.data.success) {
+                    window.alert(response.data.message)
+                    navigate("/login");
+                }
+
+                else {
+                    window.alert("OTP doesn't match!!!")
+                    //console.log(response.data.message)
+                    navigate("/signup");
+                }
             })
             .catch(error => {
-                console.log(error);
+                window.alert("OTP Doesn't Match!!!")
                 navigate("/signin");
             });
+
+
 
     }
     return (

@@ -32,11 +32,11 @@ function CreateOtp() {
         })
 
         const data = await res.json();
-        console.log(data);
-        if (!data) {
-            window.alert("OTP Sending Failed");
+        console.log(data.message);
+        if (data.success === false) {
+            window.alert(data.message);
         } else {
-            window.alert("OTP Successfully Send")
+            window.alert(data.message)
             navigate("/signup");
         }
     }
